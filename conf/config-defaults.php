@@ -15,7 +15,7 @@ $Configuration['Database']['Password']                         = '';
 $Configuration['Database']['ConnectionOptions']                = array(
                                                                   PDO::ATTR_PERSISTENT => FALSE,
                                                                   1000 => TRUE, // PDO::MYSQL_ATTR_USE_BUFFERED_QUERY is missing in some php installations
-                                                                  1002 => "set names 'utf8'" // PDO::MYSQL_ATTR_INIT_COMMAND is missing in PHP 5.3, so I use the actual value "1002" instead
+                                                                  1002 => "set names 'cp1251'" // PDO::MYSQL_ATTR_INIT_COMMAND is missing in PHP 5.3, so I use the actual value "1002" instead
                                                                );
 $Configuration['Database']['CharacterEncoding']                = 'cp1251';
 $Configuration['Database']['DatabasePrefix']                    = 'G1_';
@@ -26,7 +26,7 @@ $Configuration['Cache']['Method']                               = 'dirtycache';
 $Configuration['Cache']['Filecache']['Store']                   = PATH_LOCAL_CACHE.'/Filecache';
 
 $Configuration['Garden']['ContentType']                         = 'text/html';
-$Configuration['Garden']['Charset']                             = 'utf-8';
+$Configuration['Garden']['Charset']                             = 'cp1251';
 // An array of folders the application should never search through when searching for classes. (note: plugins had to be removed so that locale searches could get the locale folder from the plugin's folder).
 $Configuration['Garden']['FolderBlacklist']                     = array('.', '..', '_svn', '.git');
 $Configuration['Garden']['Locale']                              = 'en-CA';
@@ -101,7 +101,7 @@ $Configuration['Garden']['AllowSSL']                            = TRUE;
 $Configuration['Garden']['PrivateCommunity']                    = FALSE;
 $Configuration['Garden']['EditContentTimeout']                  = -1; // -1 means no timeout. 0 means immediate timeout. > 0 is in seconds.
 $Configuration['Garden']['Profile']['EditUsernames']            = FALSE;
-$Configuration['Garden']['Modules']['ShowGuestModule']          = TRUE;
+$Configuration['Garden']['Modules']['ShowGuestModule']          = FALSE;
 $Configuration['Garden']['Modules']['ShowSignedInModule']       = FALSE;
 $Configuration['Garden']['Modules']['ShowRecentUserModule']     = FALSE;
 
@@ -143,3 +143,5 @@ $Configuration['Routes']['DefaultController'] = 'discussions';
 $Configuration['Routes']['Default404'] = array('dashboard/home/filenotfound', 'NotFound');
 $Configuration['Routes']['DefaultPermission'] = array('dashboard/home/permission', 'NotAuthorized');
 $Configuration['Routes']['UpdateMode'] = 'dashboard/home/updatemode';
+
+$Configuration['Vanilla']['AdminCheckboxes']['Use'] = TRUE;

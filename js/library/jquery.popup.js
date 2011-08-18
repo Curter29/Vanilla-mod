@@ -127,6 +127,7 @@ Copyright 2007 Chris Wanstrath [ chris@ozmm.org ]
     $(document).unbind('keydown.popup');
     $('#'+settings.popupId).trigger('popupClose');
     $('.Overlay').remove();
+    $('#'+settings.popupId).remove();
     
     return false;
   }
@@ -318,21 +319,21 @@ Copyright 2007 Chris Wanstrath [ chris@ozmm.org ]
     },
     containerCssClass: '',
     popupHtml:       '\
-  <div class="Overlay"> \
+  <div class="Overlay"></div> \
     <div id="{popup.id}" class="Popup"> \
       <div class="Border"> \
         <div class="Body"> \
           <div class="Content"> \
           </div> \
           <div class="Footer"> \
-            <a href="#" class="Close"><span>×</span></a> \
+            <a href="#" class="Close"><span>&times;</span></a> \
           </div> \
         </div> \
       </div> \
     </div> \
-  </div>',
+  ',
     confirmHtml:       '\
-  <div class="Overlay"> \
+  <div class="Overlay"></div>\
     <div id="{popup.id}" class="Popup"> \
       <div class="Border"> \
         <div class="Body"> \
@@ -344,7 +345,7 @@ Copyright 2007 Chris Wanstrath [ chris@ozmm.org ]
         </div> \
       </div> \
     </div> \
-  </div>',
+  ',
     afterLoad: function() {}
   }
 

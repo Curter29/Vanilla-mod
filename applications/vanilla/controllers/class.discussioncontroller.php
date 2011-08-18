@@ -170,7 +170,7 @@ class DiscussionController extends VanillaController {
       // Add modules
       $this->AddModule('NewDiscussionModule');
       $this->AddModule('CategoriesModule');
-      $this->AddModule('BookmarkedModule');
+      //$this->AddModule('BookmarkedModule');
 
       // Report the discussion id so js can use it.      
       $this->AddDefinition('DiscussionID', $DiscussionID);

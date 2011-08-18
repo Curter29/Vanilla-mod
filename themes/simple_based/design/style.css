@@ -1,0 +1,1597 @@
+/*reset*/
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outline:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+.clear { clear:both; font-size: 0; line-height: 0; height: 0;}
+.clearfix:after { content: "."; display: block; clear: both; visibility: hidden; line-height: 0; height: 0; }
+.clearfix { display: inline-block; }
+html[xmlns] .clearfix { display: block; }
+* html .clearfix { height: 1%; } 
+
+.left,.fl { float:left; }
+.right,.fr { float:right; }
+.hidden { display:none; }
+
+.w100ps { width: 100%; }
+
+.tleft { text-align: left; }
+.tright { text-align: right; }
+
+/*common boxes*/
+
+html, body {
+    margin: 0;
+    padding: 0;
+    background: #fbfaf6;
+    width: 100%;
+    height: 100%;
+}
+
+body, td {    
+    font-family: 'trebuchet MS', sans-serif;
+    font-size: 13px;
+    line-height: normal;
+}
+
+.op1, #Menu li.Highlight a, .DiscussionsTabs li.Active, .DiscussionsTabs .Breadcrumb{
+    filter: alpha(opacity=1);
+    -moz-opacity: 1;
+    -khtml-opacity: 1;
+    opacity: 1;    
+}
+
+/*sticky footer*/
+
+#main_top {min-height: 100%;}
+#main_toper {
+    overflow:hidden;
+    padding-bottom: 52px;
+}
+#main_foot {
+    position: relative;
+    margin-top: -52px;
+    height: 52px;
+    clear:both;
+}
+/*Opera Fix*/
+body:before {
+    content:"";
+    height:100%;
+    float:left;
+    width:0;
+    margin-top:-32767px;
+}
+
+/*a, img, div, span {behavior: url(iepngfix.htc);}*/
+
+
+/*ready to rock*/
+
+#main_footer{
+    height: 100%;
+    background: #a6a6a6;
+}
+
+#main_toper {    
+}
+
+.fixed1 {width:1000px;margin:0 auto;}
+
+.content {
+    float: left;
+    width: 694px; /*752*/
+    padding: 0 30px 0 14px;
+}
+.sidepanel {
+    float: right;
+    width: 248px;
+    padding-right: 14px;
+}
+
+.headbar {
+    background: #38abe3;
+}
+
+.headbar .fixed1 {
+    height: 80px;
+    margin-bottom: 12px;
+    overflow: hidden;
+}
+
+.headbart {width:100%;}
+.headbart td {
+    height: 80px;
+    vertical-align: middle;
+}
+
+td.logo {
+    width:10%;
+    padding: 0 20px 0 7px;
+    font: bold italic 20px/140% georgia, serif;
+}
+td.logo a {
+    color: #454640;
+    text-decoration: none;    
+}
+td.menu {width:55%;}
+td.search {width:15%;}
+td.upanel {
+    width:15%;
+    padding-right: 7px;
+}
+
+#Menu li{
+    float: left;
+    margin-right: 38px;
+    vertical-align: middle;
+    height: 80px;
+    line-height: 80px;
+}
+
+#Menu li a {
+    font: 25px Tahoma, Geneva, sans-serif;
+    color: #fff;
+    filter: alpha(opacity=50);
+    -moz-opacity: 0.5;
+    -khtml-opacity: 0.5;
+    opacity: 0.5;
+}
+
+/*#Menu li.Highlight a{
+    filter: alpha(opacity=1);
+    -moz-opacity: 1;
+    -khtml-opacity: 1;
+    opacity: 1;
+}*/
+
+#Menu li.Highlight{
+    background: url(img/menu_active.png) no-repeat center bottom;
+}
+
+.upanel .avatar {
+    display: block;
+    height: 50px;
+    width: 50px;
+    background: #fff;
+    padding: 3px;
+    margin-right: 10px;
+    float: left;
+}
+
+.upanel .avatar div {
+    height: 50px;
+    width: 50px;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.upanel .uinfo {
+    display: block;
+    line-height: 180%;
+    padding-top: 1px;
+}
+
+.uinfo a {
+    font-size: 15px;
+    color: #fff;
+}
+
+.headsig, .headsig a{
+   color: #fff;
+   line-height: 180%;
+}
+
+.upanel .Alert {
+    
+}
+
+
+
+
+.DiscussionsTabs li{
+    display: inline;
+    padding-right: 25px;
+    filter: alpha(opacity=25);
+    -moz-opacity: 0.25;
+    -khtml-opacity: 0.25;
+    opacity: 0.25;
+    line-height: 180%;
+}
+.DiscussionsTabs li a {
+    font: 18px Tahoma, Geneva, sans-serif;
+    color: #474747;
+}
+
+/*.DiscussionsTabs li a span {
+    vertical-align: super;
+}*/
+
+.DiscussionsTabs span.sup {
+    vertical-align: super;
+    padding-left: 4px;
+}
+
+/*.DiscussionsTabs li.Active {
+    filter: alpha(opacity=1);
+    -moz-opacity: 1;
+    -khtml-opacity: 1;
+    opacity: 1;
+}*/
+
+.DiscussionsTabs li.first_tab{
+    padding-left: 50px;
+}
+
+.DiscussionsTabs li.Breadcrumb {
+    padding-right: 0;
+}
+
+.Crumb {
+    margin: 0 6px;
+    padding: 3px 6px;
+    background: url(img/ico_arrow_r.png) no-repeat center;
+}
+
+
+
+ul.DataList, .Empty{
+    margin-top: 20px;    
+}
+
+ul.DataList li.Item {    
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.Discussion .Title {
+    font: bold 10pt/140% 'lucida grande','Lucida Sans Unicode',tahoma,sans-serif;
+    color: #260dbf;
+    text-decoration: none;
+    border-bottom: solid 1px;
+}
+
+.discussions_p, .discussions_g, .discussions_y, .discussions_c, .discussions_b{
+    font: 12px verdana, sans-serif;
+    background: #eaeaea;
+    padding: 2px 6px 3px 6px;
+    float: left;
+    display: block;
+    margin: 4px 6px 0 0;
+    color: #4c4c4c;
+    position: relative;
+}
+.discussions_p a {color: #4c4c4c;}
+.discussions_g {
+    margin-left: -6px;
+    background: #08af19;
+    color: #000;
+}
+
+.discussions_y {
+    background: #f7f036; 
+    padding-left: 36px;
+    color: #000;
+}
+.discussions_y i {
+    left:6px;
+    top:-3px;
+    position: absolute;
+    display: block;
+    width: 22px;
+    height: 22px;
+    background: url(img/ico_anoncement.png) no-repeat 0 0;
+}
+
+
+.discussions_c {
+    background: #424242; 
+    padding-left: 34px;
+    color: #eaeaea;    
+}
+.discussions_c i {
+    left:4px;
+    top:-6px;
+    position: absolute;
+    display: block;
+    width: 22px;
+    height: 22px;
+    background: url(img/ico_closed.png) no-repeat 0 0;
+}
+
+.discussions_b {
+    background: #eaeaea;    
+    color: #aaaaaa;
+}
+.discussions_b.Bookmarked {
+    background: #ff6e1c;
+    color: #fff;
+}
+
+.discussions_c i {
+    left:4px;
+    top:-6px;
+    position: absolute;
+    display: block;
+    width: 22px;
+    height: 22px;
+    background: url(img/ico_closed.png) no-repeat 0 0;
+}
+
+
+
+
+b.button, a.button{
+    border: 0 none;
+    display: inline-block;
+    height: 33px;
+    margin: 0;
+    padding: 0;
+    background: url(img/btn_gray_open.png) no-repeat 0 0;
+    text-decoration: none;
+    
+}
+b.button input, a.button input{
+    background: none repeat scroll 0 0 transparent;
+    border: 0 none;
+    color: #010101;
+    cursor: pointer;
+    font: bold 13px/33px Tahoma,Helvetica,sans-serif;
+    height: 33px;
+    margin: 0;
+    overflow: visible;
+    padding: 0 30px 2px;
+}
+b.button i, a.button i{
+    text-align: center;
+    border: 0 none;
+    display: inline-block;
+    height: 33px;
+    margin: 0;
+    padding: 0;
+    background: url(img/btn_gray_close.png) no-repeat right top;
+    width: 100%;
+}
+
+.NewDiscussion {
+    padding-bottom: 16px;
+}
+
+.Box {
+    margin-bottom: 30px;
+}
+
+.PanelCategories li{
+    display: block;
+    border-bottom: solid #cccccc 1px;
+    padding: 3px;
+}
+
+.PanelCategories li a {
+    color: #3d3d3d;
+    text-decoration: none;
+}
+
+.PanelCategories .lelvdown {
+    padding-left: 8px;
+}
+
+.PanelCategories .lelvdown a{
+    padding-left: 22px;
+    background: url(img/ico_level_ar.png) no-repeat 0 0;
+}
+
+.PanelCategories .Count {
+    float: right;
+}
+
+.PanelCategories li.Active {
+    background: #c9e8f7;
+}
+
+.PanelCategories .Depth3 {padding-left:16px;}
+.PanelCategories .Depth4 {padding-left:24px;}
+.PanelCategories .Depth5 {padding-left:32px;}
+.PanelCategories .Depth6 {padding-left:40px;}
+.PanelCategories .Depth7 {padding-left:48px;}
+.PanelCategories .Depth8 {padding-left:56px;}
+.PanelCategories .Depth9 {padding-left:64px;}
+.PanelCategories .Depth10 {padding-left:72px;}
+
+.DiscussionHead {
+    padding-bottom: 30px;
+}
+.DiscussionHead .Title {
+    /*font: 16pt/140% 'lucida grande','Lucida Sans Unicode',tahoma,sans-serif; !important;*/
+    font: 14pt/140% Tahoma,Geneva,sans-serif !important;
+    border: 0;
+    display: block;
+    padding-bottom: 5px;
+    color: #000;
+}
+
+.DiscussionHead .discussions_p {
+    float: none;
+    display: inline;
+}
+
+.MessageList li {
+    margin-bottom: 27px;
+    position: relative;
+}
+
+.MessageList li.Comment, .Foot {
+    padding: 12px 10px 15px 11px;
+}
+
+.MessageList li.Mine {
+    background: #eaeaea;
+    border-left: solid #acacac 3px;
+}
+
+.MessageList .Author {
+    line-height: 54px;
+    height: 54px;
+    vertical-align: middle;
+    margin-bottom: 17px;
+}
+
+/*.MessageList .Message {
+    padding-top: 17px;
+}*/
+
+.MessageList table.Author td {
+    height: 50px;
+    overflow: hidden;
+    vertical-align: middle;
+}
+
+.Author td.avatar {padding-right: 10px;}
+.Author td.profile a{font-size: 14px;}
+.Author td.date {
+    padding-left: 15px;
+    color:#a2a1a1;
+}
+
+.Author .date.today span {
+    background: #08af19;
+    padding: 2px 6px 3px 6px;
+    color: #fff;
+}
+
+.arrow_back {
+    padding: 30px 0;
+}
+
+.Foot {
+    padding-top: 0;
+}
+
+.gray_cap_sm {
+    color: #969696;
+    font-size: 12px;
+}
+
+.dis_inline {
+    display: inline !important;
+}
+
+.pt10 {
+    padding-top: 10px;
+}
+
+#SignInRememberMe {margin-bottom: 10px;}
+
+.content h1 {
+    font-family: 'trebuchet MS',sans-serif;
+    font-size: 14pt;
+    font-weight: normal;
+    margin-bottom: 10px;
+}
+
+
+.CommentTabs li {
+    display: inline;
+    margin-right: 10px;
+}
+
+.CommentTabs ul {
+    margin-bottom: 10px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*copy from orgognal with minimal mod*/
+
+
+
+/* Option (dropdown) Menus
+
+Menu takes a z-index of 100
+Option menu takes a z-index of 300
+
+*/
+ul.DataList div.Options, .MessageList .Options {
+   margin: 7px 0 0 0;
+   right: 0;
+   top: 0;
+}
+ul.DataList div.OptionButton {
+    top: 0;
+    right: 0;
+} 
+
+ul.Options,
+ul.Options ul {
+   margin: 0;
+   padding: 0;
+   display: none;
+}
+.DataList .Item.Active ul.Options {
+    display:block;
+}
+
+.Item h3 {
+   font-size: 14px;
+}
+
+ul.Options {
+   z-index: 298;
+}
+ul.Options ul {
+   z-index: 300;
+   position: absolute;
+}
+ul.Options li {
+   float: right;
+   position: relative;
+   display: block;
+   list-style: none outside none;
+   padding: 0;
+   font-size: 11px;
+   line-height: 22px;
+}
+ul.Options h3 {
+   display: block;
+   cursor: pointer;
+   margin: 0;
+   padding: 0;
+}
+ul.Options li ul li {
+   float: none;
+   text-align: left;
+   margin: 0;
+   font-weight: normal;
+}
+ul.Options li ul li a {
+   width: 104px;
+   padding: 0 6px;
+   height: auto;
+}
+ul.Options a {
+   text-decoration: none;
+   display: block;
+   position: relative;
+   white-space: nowrap;
+   font-size: 11px;
+}
+ul.Options ul li {
+   display: block;
+   float: none;
+}
+ul.Options li.Parent strong {
+   display: block;
+   padding: 4px;
+   margin: 3px 4px 0 0;
+   font-size: 10px;
+   font-weight: normal;
+   border: 1px solid #bbb;
+   color: #555;
+   cursor: pointer;
+   line-height: 100%;
+}
+ul.Options li.Parent strong:focus,
+ul.Options li.Parent strong:hover {
+   color: #333;
+   border: 1px solid #888;
+}
+ul.Options li.Parent strong:focus {
+   background: #eee;
+}
+ul.Options li.Active strong:hover,
+ul.Options li.Active strong {
+   color: #fff;
+   background: #9c9c9c !important;
+   border: 1px solid #9c9c9c;
+}
+ul.Options li.Active {
+   background: none;
+}
+ul.Options li.Active ul {
+   background: #444;
+   border: 1px solid #282828;
+}
+ul.Options li.Active ul li a {
+   background: none;
+}
+ul.Options li.Active a {
+   background: #efefef;
+   color: #fff;
+}
+ul.Options li.Active a:hover {
+   color: #fff;
+   background: #282828;
+}
+ul.Options li.Parent strong:hover,
+ul.Options li.Active strong:hover,
+ul.Options li.Active strong,
+ul.Options li.Active ul {    
+}
+
+
+ul.Options li.Active strong,
+ul.Options li.Active strong:hover,
+ul.Options li.Parent strong {
+   padding-right: 18px;
+   font-size: 11px;
+   background: url('img/buttons.png') right -96px no-repeat;
+}
+ul.Options li.Active strong,
+ul.Options li.Active strong:hover {
+   border: 1px solid #282828;
+   color: #fff;
+   background: url('img/buttons.png') right -144px no-repeat #282828 !important;
+}
+ul.Options li.Parent strong:hover {
+}
+ul.Options li.Active strong:hover,
+ul.Options li.Active strong,
+ul.Options li.Active ul {
+
+}
+
+.OptionsMenu {
+   display: inline-block;
+   font-size: 10px;
+   font-weight: normal;
+   line-height: 100%;
+}
+.Item .OptionsMenu {
+   vertical-align: top;
+   visibility: hidden;
+}
+.Open.OptionsMenu, .Item:hover .OptionsMenu {
+   visibility: visible;
+}
+.MenuTitle {
+   color: #000;
+   border: 1px solid #bbb;
+   padding: 4px;
+   background: url('img/buttons.png') right -96px no-repeat;
+   padding-right: 18px;
+}
+/*.MenuTitle:hover {
+   box-shadow:2px 2px 3px rgba(0,0,0,0.5);
+   -moz-box-shadow:2px 2px 3px rgba(0,0,0,0.5);
+   -webkit-box-shadow:2px 2px 3px rgba(0,0,0,0.5);
+}*/
+.Open .MenuTitle {
+   border: 1px solid #282828;
+   color: #fff;
+   background: url('img/buttons.png') right -144px no-repeat #282828;
+}
+.MenuItems {
+   border: 1px solid #282828;
+   background:none repeat scroll 0 0 #444444;
+   border:1px solid #282828;
+   min-width: 125px;
+   line-height: 100%;
+   font-size: 10px;
+    color: #fff;
+}
+.MenuItems li {
+   padding: 6px !Important;
+}
+.MenuItems a, .MenuItems a:link, .MenuItems a:visited, .MenuItems a:active {
+   color: #fff;
+    display: block;
+    text-decoration: none;
+}
+.MenuItems li:hover {
+   background: #282828;
+}
+
+.ToggleFlyout {
+   cursor: pointer;
+   position: relative;
+}
+.ToggleFlyout.Open {
+   z-index: 100;
+}
+.ToggleFlyout .Flyout {
+   position: absolute;
+   top: 100%;
+   left: 0;
+   display: none;
+   z-index: 100;
+}
+
+.Center {
+   text-align: center;
+}
+
+.Tabs {position: relative;}
+.AdminCheck {
+   display: inline-block;
+   height: 22px;
+   position: absolute;
+   top: 3px;
+   left: -18px;
+    filter: alpha(opacity=0.25);
+    -moz-opacity: 0.25;
+    -khtml-opacity: 0.25;
+    opacity: 0.25; 
+}
+.Tabs .AdminCheck {top:20px;}
+
+.MessageOptions .AdminCheck {top:-3px;left: -20px;}
+.FirstComment .AdminCheck {top: -32px;}
+
+.MessageOptions span {margin-right: 20px;}
+.MessageOptions {margin-top: 10px;}
+
+
+
+
+
+/* Note: InformMessages are "growl" style messages that appear in a fixed
+position on the page to notify users of things like drafts being saved, etc. */
+div.InformMessages {
+   text-align: left !important;
+   position: fixed;
+   top: auto;
+   bottom: 20px;
+   left: 20px;
+   z-index: 200;
+   margin: 0 !important;
+   padding: 0 !important;
+   list-style: none !important;
+   font-size: 12px;
+   display: block;
+   width: auto;
+}
+* html div.InformMessages {
+  position: absolute;
+  top: auto;
+  margin-left: 20px;
+  overflow: visible; 
+  bottom: expression(eval(document.compatMode && document.compatMode=='CSS1Compat') ? documentElement.scrollBottom : document.body.scrollBottom);
+}
+div.InformMessages div.InformWrapper {
+    display: block;
+}
+div.InformMessages div.InformMessage {
+   color: #fff !important;
+    text-shadow: 0 1px 1px #000;
+   text-align: left !important;
+   border-radius: 2px;
+   -moz-border-radius: 2px;
+   -webkit-border-radius: 2px;
+    background: rgb(0, 0, 0) !important;
+    background: rgba(0, 0, 0, 0.7) !important;
+   border: none !important;
+   width: auto !important;
+    max-width: 400px !important;
+   margin: 10px auto 0 !important;
+   padding: 9px 14px 8px !important;
+   display:-moz-inline-stack;
+   display:inline-block;
+   zoom:1;
+   *display:inline;
+    position: relative;
+    line-height: 1.6;
+}
+div.InformMessages div.InformMessage:hover {
+    background: rgba(0, 0, 0, 0.8) !important;
+}
+div.InformMessages div.InformMessage a {
+    color: #aff;
+}
+div.InformMessages div.InformMessage a:hover {
+    color: #cff;
+    text-decoration: underline;
+}
+div.InformMessages div.InformMessage strong {
+    font-weight: bold;
+}
+div.InformMessages div.InformMessage a.Close {
+    border: none;
+    background: transparent;
+    color: #ddd;
+    font-size: 14px;
+    text-align: center;
+    display: none;
+    height: 12px;
+    width: 12px;
+    line-height: 1;
+    text-decoration: none;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+}
+div.InformMessages div.InformMessage a.Close span {
+    display: inline;
+}
+div.InformMessages div.InformMessage a.Close:hover {
+    background: #000;
+    color: #fff;
+}
+div.InformMessages div.InformMessage:hover a.Close {
+    display: block;
+}
+div.InformMessages div.Actions a { margin-right: 4px; }
+div.InformMessages div.Actions a:last-child { margin-right: 0; }
+div.InformMessages div.Actions a.CancelAction {    color: #aaa; }
+
+/* Inform Sprites */
+div.InformMessages div.InformWrapper.HasIcon div.InformMessage {
+    padding-left: 42px !important;
+    min-height: 20px;
+}
+div.InformMessages div.InformWrapper.HasSprite div.InformMessage {
+    padding-left: 40px !important;
+}
+div.InformMessages div.InformMessage a.Icon {
+    display: block;
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    height: 28px;
+    width: 28px;
+}
+div.InformMessages div.InformMessage a.Icon img {
+    height: 28px;
+    width: 28px;
+}
+span.InformSprite {
+    background: url('img/inform-sprites.png') -9px -9px no-repeat;
+    display: block;
+    position: absolute;
+    top: 4px;
+    left: 5px;
+    height: 30px;
+    width: 30px;
+}
+span.InformSprite.Refresh { background-position: -9px -9px; }
+span.InformSprite.Recycle { background-position: -57px -9px; }
+span.InformSprite.Infinity { background-position: -105px -9px; }
+span.InformSprite.Squiggle { background-position: -153px -9px; }
+span.InformSprite.Random { background-position: -200px -9px; }
+span.InformSprite.Magnify { background-position: -250px -9px; }
+span.InformSprite.Location { background-position: -298px -9px; }
+span.InformSprite.Bubble { background-position: -346px -9px; }
+span.InformSprite.ElipsisBubble { background-position: -394px -9px; }
+span.InformSprite.Plus { background-position: -442px -9px; }
+span.InformSprite.Time { background-position: -9px -57px; }
+span.InformSprite.Eye { background-position: -57px -57px; }
+span.InformSprite.Target { background-position: -105px -57px; }
+span.InformSprite.Redflag { background-position: -153px -57px; }
+span.InformSprite.Flags { background-position: -200px -57px; }
+span.InformSprite.Graph { background-position: -250px -57px; }
+span.InformSprite.Chart { background-position: -298px -57px; }
+span.InformSprite.Envelope { background-position: -346px -57px; }
+span.InformSprite.Gear { background-position: -394px -57px; }
+span.InformSprite.Gears { background-position: -442px -57px; }
+span.InformSprite.Skull { background-position: -9px -106px; }
+span.InformSprite.SkullBones { background-position: -57px -106px; }
+span.InformSprite.Bird { background-position: -105px -106px; }
+span.InformSprite.Present { background-position: -153px -106px; }
+span.InformSprite.Thundercloud { background-position: -200px -106px; }
+span.InformSprite.Bandaid { background-position: -250px -106px; }
+span.InformSprite.Saturn { background-position: -298px -106px; }
+span.InformSprite.Star { background-position: -346px -106px; }
+span.InformSprite.Heart { background-position: -394px -106px; }
+span.InformSprite.Key { background-position: -442px -106px; }
+span.InformSprite.Ipod { background-position: -9px -152px; }
+span.InformSprite.Iphone { background-position: -57px -152px; }
+span.InformSprite.Cabinet { background-position: -105px -152px; }
+span.InformSprite.Coffee { background-position: -153px -152px; }
+span.InformSprite.Briefcase { background-position: -200px -152px; }
+span.InformSprite.Toolcase { background-position: -250px -152px; }
+span.InformSprite.Suitcase { background-position: -298px -152px; }
+span.InformSprite.Airplane { background-position: -346px -152px; }
+span.InformSprite.Spraypaint { background-position: -394px -152px; }
+span.InformSprite.MailInbox { background-position: -442px -154px; }
+span.InformSprite.WallPicture { background-position: -9px -200px; }
+span.InformSprite.Photos { background-position: -57px -200px; }
+span.InformSprite.FilmRoll { background-position: -105px -200px; }
+span.InformSprite.Drawer { background-position: -153px -200px; }
+span.InformSprite.FilmStrip { background-position: -200px -200px; }
+span.InformSprite.FilmStrip2 { background-position: -250px -200px; }
+span.InformSprite.Gas { background-position: -298px -200px; }
+span.InformSprite.Cutlery { background-position: -346px -200px; }
+span.InformSprite.Battery { background-position: -394px -200px; }
+span.InformSprite.Beaker { background-position: -442px -200px; }
+span.InformSprite.Outlet { background-position: -9px -250px; }
+span.InformSprite.Pinetree { background-position: -57px -250px; }
+span.InformSprite.House { background-position: -105px -250px; }
+span.InformSprite.Padlock { background-position: -153px -250px; }
+span.InformSprite.Network { background-position: -200px -250px; }
+span.InformSprite.Cloud { background-position: -250px -250px; }
+span.InformSprite.Download { background-position: -298px -250px; }
+span.InformSprite.BookmarkRibbon { background-position: -346px -250px; }
+span.InformSprite.Flag { background-position: -394px -250px; }
+span.InformSprite.Signpost { background-position: -442px -250px; }
+span.InformSprite.Brightness { background-position: -9px -298px; }
+span.InformSprite.Contrast { background-position: -57px -298px; }
+span.InformSprite.Runner { background-position: -105px -298px; }
+span.InformSprite.Zap { background-position: -153px -298px; }
+span.InformSprite.MusicNote { background-position: -200px -298px; }
+span.InformSprite.Microphone { background-position: -250px -298px; }
+span.InformSprite.Tshirt { background-position: -298px -298px; }
+span.InformSprite.Paperclip { background-position: -346px -298px; }
+span.InformSprite.Monitor { background-position: -394px -298px; }
+span.InformSprite.Tv { background-position: -442px -297px; }
+span.InformSprite.Compass { background-position: -9px -346px; }
+span.InformSprite.Pin { background-position: -57px -346px; }
+span.InformSprite.Radar { background-position: -105px -346px; }
+span.InformSprite.Location { background-position: -153px -346px; }
+span.InformSprite.Telephone { background-position: -200px -346px; }
+span.InformSprite.Baby { background-position: -250px -346px; }
+span.InformSprite.Ekg { background-position: -298px -346px; }
+span.InformSprite.Stopwatch { background-position: -346px -346px; }
+span.InformSprite.MedicalBag { background-position: -394px -346px; }
+span.InformSprite.ShoppingCart { background-position: -442px -346px; }
+span.InformSprite.Dashboard { background-position: -9px -393px; }
+span.InformSprite.Dogpaw { background-position: -57px -393px; }
+span.InformSprite.Calendar { background-position: -105px -393px; }
+span.InformSprite.Lightbulb { background-position: -153px -393px; }
+span.InformSprite.Trophy { background-position: -200px -393px; }
+span.InformSprite.Camera { background-position: -250px -393px; }
+span.InformSprite.Wineglass { background-position: -298px -393px; }
+span.InformSprite.Beerglass { background-position: -346px -391px; }
+span.InformSprite.Dumbbells { background-position: -394px -393px; }
+span.InformSprite.Buoy { background-position: -442px -393px; }
+span.InformSprite.Beaker2 { background-position: -9px -440px; }
+span.InformSprite.Testtube { background-position: -57px -440px; }
+span.InformSprite.Thermometer { background-position: -105px -440px; }
+span.InformSprite.Pill { background-position: -153px -440px; }
+span.InformSprite.Equalizer { background-position: -200px -440px; }
+span.InformSprite.Book { background-position: -250px -440px; }
+span.InformSprite.Puzzle { background-position: -298px -440px; }
+span.InformSprite.Palette { background-position: -346px -440px; }
+span.InformSprite.Umbrella { background-position: -394px -440px; }
+span.InformSprite.CoffeeCup { background-position: -442px -440px; }
+span.InformSprite.Gameplan { background-position: -9px -490px; }
+span.InformSprite.Walk { background-position: -57px -490px; }
+span.InformSprite.Map { background-position: -105px -490px; }
+span.InformSprite.IndexCards { background-position: -153px -490px; }
+span.InformSprite.Piano { background-position: -200px -490px; }
+span.InformSprite.Sliders { background-position: -250px -490px; }
+span.InformSprite.Widescreen { background-position: -298px -490px; }
+span.InformSprite.Badge { background-position: -346px -490px; }
+span.InformSprite.Chicken { background-position: -394px -490px; }
+span.InformSprite.Bug { background-position: -442px -490px; }
+span.InformSprite.SingleUser { background-position: -9px -539px; }
+span.InformSprite.Group { background-position: -57px -537px; }
+span.InformSprite.Navigation { background-position: -105px -537px; }
+span.InformSprite.Balloon { background-position: -153px -537px; }
+span.InformSprite.Bowandarrow { background-position: -200px -537px; }
+span.InformSprite.Controller { background-position: -250px -537px; }
+span.InformSprite.Check { background-position: -298px -537px; }
+span.InformSprite.Hanger { background-position: -346px -537px; }
+span.InformSprite.Piggybank { background-position: -394px -537px; }
+span.InformSprite.Headphones { background-position: -442px -537px; }
+span.InformSprite.Landscape { background-position: -9px -586px; }
+span.InformSprite.Stats { background-position: -57px -586px; }
+span.InformSprite.Idcard { background-position: -105px -586px; }
+span.InformSprite.Bullhorn { background-position: -153px -586px; }
+span.InformSprite.Food { background-position: -200px -586px; }
+span.InformSprite.Moon { background-position: -250px -586px; }
+span.InformSprite.Sock { background-position: -298px -586px; }
+span.InformSprite.Bone { background-position: -346px -586px; }
+span.InformSprite.Golf { background-position: -394px -586px; }
+span.InformSprite.Dice { background-position: -442px -586px; } 
+
+
+
+
+
+
+
+/* =================================================================== Popups */
+div.Popup .Info {
+    margin-top: 10px;
+}
+div.Popup .Loading {
+   display: block;
+    width: 200px;
+}
+div.Overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  filter: alpha(opacity=0.75);
+  -moz-opacity: 0.75;
+  -khtml-opacity: 0.75;
+  opacity: 0.75;
+}
+div.Popup {
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 5000;
+  text-align: center;
+}
+div.Popup div.Border {
+  margin: 0px auto;
+  text-align: left;
+  position: relative;
+  max-width: 500px;
+  display: inline-block;
+}
+div.Popup div.Body {
+  background: #fff;
+}
+div.Popup div.Legal,
+div.Popup .Content form {
+    max-height: 440px;
+    overflow: auto;
+    padding: 0 10px 10px;
+}
+div.Popup .Loading {
+  text-align: center;
+}
+div.Popup h1,
+div.Popup h2 {
+    font-size:120%;
+    font-weight:bold;
+    margin-bottom: 0;
+    color: #fff;
+    background: #38abe3;
+    border-bottom: 1px solid #3DB9E5;
+    padding: 6px 9px 4px;
+}
+a.Close {
+    position: absolute;
+    top: 6px;
+    right: 10px;
+    line-height: 1;
+    color: #E4F7FE;
+    cursor: pointer;
+    font-family: arial;
+    font-size: 22px;
+    font-weight: bold;
+    padding: 0;
+    text-decoration: none;
+}
+a.Close:hover {
+    color: #fff;
+}
+div.Popup .Footer {
+    border: none;
+    background: none;
+    padding: 0;
+    margin: 0;
+    text-align: right;
+}
+div.Popup .Footer {
+    font-size: 11px;
+    margin-right: 2px;
+}
+div.Popup h3 {
+    font-size: 120%;
+    font-weight: bold;
+    padding: 20px 0 10px;
+}
+div.Popup p {
+    padding: 6px 10px 10px;
+}
+div.Popup div.Legal p {
+    padding: 6px 0 10px;
+}
+div.Popup small {
+    font-size: 11px;
+}
+div.Popup form p {
+    padding: 0;
+}
+body.Profile #Form_Invitation ul li label,
+body.Profile #Form_User ul li label,
+div.Popup form ul li label {
+    color:#000;
+    display:block;    
+    font-weight:bold;
+    margin: 10px 0 0;
+}
+body.Entry form ul li.Gender label.RadioLabel,
+body.Profile #Form_User ul li.Gender label.RadioLabel,
+div.Popup form ul li.Gender label.RadioLabel {
+    display: inline;
+    padding-right: 20px;
+}
+li.Gender {
+    margin-bottom: 10px;
+}
+body.Profile #Form_User ul li label.RadioLabel,
+body.Profile #Form_User ul li label.CheckBoxLabel,
+div.Popup form ul li label.RadioLabel,
+div.Popup form ul li label.CheckBoxLabel {
+    font-weight: normal;
+}
+
+div.Popup #Form_User div.Warning,
+#dashboard_profile_picture #Form_User div.Warning {
+    margin: 6px 0;
+}
+div.Popup form ul li label.RadioLabel {
+    font-size: 12px;
+}
+
+/* Serious Ajax Error Styles */
+div.AjaxError {
+    white-space: pre;
+    overflow: auto;
+    padding: 10px;
+}
+
+/* ==================================================================== Legal */
+div.Legal h3 {
+    padding: 0;
+    margin: 20px 0 0;
+    font-size: 120%;
+    font-weight: bold;
+}
+div.Legal ol {
+    list-style-position:outside;
+    list-style-type:decimal;
+    margin:0 30px 10px;
+}
+div.Legal ul {
+    list-style-position:outside;
+    list-style-type:disc;
+    margin:0 30px 10px;
+}
+div.Legal li {
+    padding: 5px 0;
+}
+div.Legal strong {
+    font-weight: bold;
+} 
+
+
+
+
+
+
+
+input.DateBox,
+input.InputBox,
+input.SmallInput,
+textarea {
+   font-family: 'lucida grande','Lucida Sans Unicode', tahoma, sans-serif;
+   color: #333;
+   padding: 3px;
+   margin: 0;
+   width: 250px;
+   border: 1px solid #aaa;
+}
+.TextBoxWrapper {
+    width: auto;
+    padding-right: 8px;
+}
+textarea.TextBox {
+   width: 500px;
+   height: 100px;
+   min-height: 100px;
+}
+#Popup textarea.TextBox {
+   width: 100%;
+}
+input.SmallInput,
+input.InputBox {
+   padding: 6px 3px;
+}
+input.SmallInput:focus,
+input.InputBox:focus,
+textarea:focus {
+   background: #ffe;
+}
+input.BigInput {
+   width: 100%;
+}
+textarea {
+   line-height: 128%;
+}
+select {
+   font-family: arial;
+   font-size: 14px;
+   color: #222;
+   margin: 0;
+   padding: 3px;
+   }
+a.Button,
+.Button {
+   cursor: pointer;
+   margin: 0;
+   font-size: 11px;
+   padding: 4px;
+   background: #f8f8f8;
+   color: #02475A;
+   border: 1px solid #999;
+   white-space: nowrap;
+}
+a.Button {
+   display: inline-block;
+   padding: 4px;
+   line-height: 100%;
+   margin: 3px auto;
+}
+
+
+.Buttons {
+   margin-top: 10px;
+   margin-bottom: 10px;
+}
+
+.Popup .Buttons {
+    margin-bottom: 0;
+}
+
+.Loading {
+   height: 100px;
+   padding: 0 20px;
+   background: url('img/progress.gif') center center no-repeat;
+}
+.Progress {
+   padding: 10px 40px 10px 0;
+   background: url('img/progress.gif') center center no-repeat;
+}
+.TinyProgress {
+    padding: 10px 40px 10px 0;
+    background: url('img/progress_sm.gif') center center no-repeat;
+}
+.Conversations .Deleted {
+   text-decoration: line-through;
+}
+div.Deleted {
+    background: #f5f5f5;
+    border: 1px solid #dddddd;
+    margin: 10px 0 0;
+    padding: 6px 10px;
+   border-radius: 3px;
+   -moz-border-radius: 3px;
+   -webkit-border-radius: 3px;
+}
+/* Note: Warning, Alert & Info are simple boxes that can be used to wrap message
+   strings & imply importance. */
+.Warning {
+   background: #ffc;
+   border: 1px solid #ff9;
+   color: #000;
+   padding: 6px 8px;
+   border-radius: 3px;
+   -moz-border-radius: 3px;
+   -webkit-border-radius: 3px;
+}
+span.Alert {
+   background: #d00;
+   color: #fff;
+   padding: 1px 4px;
+   border-radius: 2px;
+   -moz-border-radius: 2px;
+   -webkit-border-radius: 2px;
+   text-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
+}
+span.Alert a {
+   color: #fff;
+}
+span.Alert a:hover {
+   text-decoration: underline;
+}
+div.Info {
+   font-size: 13px;
+   background: #fafafa;
+   border: 1px solid #eee;
+   color: #888;
+   -moz-border-radius: 4px;
+   -webkit-border-radius: 4px;
+   border-radius: 4px;
+   padding: 6px;
+   margin: 0 0 10px;
+}
+div.Info strong {
+    font-weight: bold;
+}
+/* Note: The MessageModule (in /applications/dashboard/modules) wraps all messages
+  that it renders in a div with this DismissMessage class. */
+div.DismissMessage {
+   margin: 6px 0 10px;
+    text-align: left;
+    position: relative;
+}
+div.DismissMessage p {
+   margin: 2px 0;
+}
+div.DismissMessage a.Dismiss {
+    font-family: arial;
+   position: absolute;
+    font-size: 22px;
+    font-weight: bold;
+   line-height: 1;
+   color: #999;
+    top: 3px;
+    right: 5px;
+}
+div.DismissMessage a.Dismiss:hover {
+    color: #ff0084;
+}
+#PagerLess {
+   margin-bottom: 1px;
+    text-align: left;
+}
+div.MorePager a.Loading {
+    border: 0 !important;
+   padding: 0 20px !important;
+   background: url('img/progress.gif') center center no-repeat !important;
+}
+#PagerMore {
+   margin-bottom: 1px;
+}
+.NumberedPager {
+   margin: 1px 0 0;
+    text-align: right;
+    font-weight: bold;
+    font-size: 16px;
+}
+#PagerBefore {
+   margin: 1px 0;
+}
+.NumberedPager a,
+.NumberedPager span {
+    padding: 0 4px;
+}
+.NumberedPager span,
+.NumberedPager a.Highlight {
+    color: #777;
+}
+.NumberedPager a.Next,
+.NumberedPager span.Next,
+.NumberedPager a.Previous,
+.NumberedPager span.Previous {
+    font-size: 16px;
+    line-height: 10px;
+}
+.NumberedPager a.Next,
+.NumberedPager span.Next {
+    margin-left: 6px;
+}
+.NumberedPager a.Previous,
+.NumberedPager span.Previous {
+    margin-right: 6px;
+} 
+
+
+
+
+/* ============================================================ Entry Screens */
+body.Entry {
+   text-align: left;
+}
+body.Entry #Panel {
+   display: none;
+}
+body.Entry #Content {
+   float: none;
+   margin: 0 auto;
+   width: 360px;
+   text-align: center;
+}
+body.Entry #Content h1 {
+   border: none;
+   color: #02475A;
+   font-size:140%;
+   font-weight:bold;
+   padding: 6px;
+    margin: 0;
+    text-align: left;
+}
+body.Entry #Content form {
+    text-align: left;
+    padding: 10px;
+}
+body.Entry form ul li label {
+    color: #474747;
+    font-weight: bold;
+    padding: 6px 0 0;
+    display: block;
+}
+body.Entry form ul li label.CheckBoxLabel,
+body.Entry form ul li label.RadioLabel {
+    font-weight: normal;
+   width: auto;
+}
+body.Entry input.DateBox,
+body.Entry input.InputBox,
+body.Entry textarea {
+   width: 310px;
+}
+span.Incorrect {
+   display: block;
+   color: red;
+}
+
+body#dashboard_entry_password #Content,
+body#dashboard_entry_signin #Content,
+body#dashboard_entry_index #Content {
+    width: auto;
+}
+div.SignInPopup .Content form {
+    padding: 0 10px 10px;
+}
+body#dashboard_entry_password #Content form,
+body#dashboard_entry_index #Content form,
+body#dashboard_entry_signin #Content form {
+    padding: 0;
+    text-align:left;
+}
+body#dashboard_entry_password #Content form,
+body#dashboard_entry_signin #Content form,
+body#dashboard_entry_index #Content form,
+
+.MultipleEntryMethods .Methods {
+   border-left: solid 1px #BEC8CC;
+}
+
+body#dashboard_entry_handshake #Content input.InputBox,
+body#dashboard_entry_signin #Content input.InputBox,
+body#dashboard_entry_index #Content input.InputBox,
+body#dashboard_entry_password #Content input.InputBox,
+div.SignInPopup input.DateBox,
+div.SignInPopup input.InputBox,
+div.SignInPopup textarea {
+   width: 260px;
+    padding: 3px;
+}
+div.SignInPopup form ul li label,
+body#dashboard_entry_signin form ul li label,
+body#dashboard_entry_index form ul li label,
+body#dashboard_entry_password form ul li label,
+body#dashboard_entry_handshake form ul li label {
+    font-size: 13px;
+    line-height: 1.5;
+    padding: 0;
+}
+body#dashboard_entry_password #Content form ul li input#Form_Email,
+body#dashboard_entry_signin #Content form ul li input#Form_Email,
+body#dashboard_entry_index #Content form ul li input#Form_Email {
+    margin-bottom: 6px;
+}
+body#dashboard_entry_password #Content input.Password,
+body#dashboard_entry_signin #Content input.Password,
+body#dashboard_entry_index #Content input.Password,
+div.SignInPopup input.Password {
+    width: 180px;
+}
+
+li.Buttons div a.ForgotPassword {
+    margin: 0;
+}
+body#dashboard_entry_password ul li label.CheckBoxLabel,
+body#dashboard_entry_signin ul li label.CheckBoxLabel,
+body#dashboard_entry_index ul li label.CheckBoxLabel,
+div.SignInPopup ul li label.CheckBoxLabel {
+    color: #777;
+    display: inline;
+    font-size: 12px;
+    font-weight: normal;
+    margin: 10px 0 0 10px;
+}
+div.Entry {
+    position: relative;
+}
+div.Methods {
+    text-align: left;
+    position: absolute;
+    top: 33px;
+    bottom: 0;
+    right: 0;
+    padding: 12px 20px 6px;
+    line-height: 1;
+   width: 170px;
+}
+body#dashboard_entry_password div.Methods,
+body#dashboard_entry_signin div.Methods,
+body#dashboard_entry_index div.Methods {
+    padding: 10px 6px 6px;
+    background: none;
+}
+div.Methods div.Method {
+    padding: 10px 0 0;
+    text-align: left;
+}
+
+
+
+
+/* Error messages that get displayed on forms throughout the application. */
+div.Errors {
+   text-align: left;
+   position: inherit;
+   top: auto;
+   left: auto;
+   z-index: auto;
+    margin: 0 0 10px !important;
+}
+* html div.Errors {
+  position: inherit;
+  width: auto;
+  top: auto;
+  left: auto;
+  overflow: auto; 
+}
+div.Errors ul {
+    border: 1px solid #a00 !important;
+   background: #d50a0a !important;
+    padding: 6px 10px;
+    display: block;
+}
+div.Errors ul li {
+   color: #fff !important;
+   background: #d50a0a !important;
+    text-align: left;
+}
+div.Popup div.Errors ul {
+    display: block;
+    border: 1px solid #a00 !important;
+}
+div.Popup div.Errors {
+   text-align: left;
+   position: inherit;
+   top: auto;
+   left: auto;
+   z-index: auto;
+    margin: 10px 0 !important;
+}
+div.Errors pre {
+    margin: 10px 0 5px;
+    padding: 4px 8px;
+    display: block;
+   white-space: pre;
+   overflow: auto;
+}
+
+div.Errors pre,
+div.Errors pre * {
+    background: #ffa !important;
+    font-size: 12px !important;
+    font-weight: normal !important;
+    font-family: monospace !important;
+    text-shadow: none !important;
+    color: #333  !important;
+    line-height: 1.4 !important;
+}
+div.Errors pre * {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+ 
+ 

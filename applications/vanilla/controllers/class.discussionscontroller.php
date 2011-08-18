@@ -85,7 +85,7 @@ class DiscussionsController extends VanillaController {
       // Add modules
       $this->AddModule('NewDiscussionModule');
       $this->AddModule('CategoriesModule');
-      $this->AddModule('BookmarkedModule');
+      //$this->AddModule('BookmarkedModule');
       
       // Set criteria & get discussions data
       $this->SetData('Category', FALSE, TRUE);
@@ -279,7 +279,7 @@ class DiscussionsController extends VanillaController {
       // Add modules
       $this->AddModule('NewDiscussionModule');
       $this->AddModule('CategoriesModule');
-      $this->AddModule('BookmarkedModule');
+      //$this->AddModule('BookmarkedModule');
       
       // Render default view (discussions/mine.php)
       $this->SetData('Title', T('My Discussions'));
