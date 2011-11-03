@@ -1,10 +1,5 @@
 <?php if (!defined('APPLICATION')) exit();
 
-// Cache
-$Configuration['Cache']['Enabled'] = TRUE;
-$Configuration['Cache']['Method'] = 'memcache';
-$Configuration['Cache']['Memcache']['Store'] = 'localhost:11211';
-
 // Conversations
 $Configuration['Conversations']['Version'] = '2.0.18b2';
 
@@ -24,35 +19,40 @@ $Configuration['EnabledLocales']['russian'] = 'ru-RU';
 // EnabledPlugins
 $Configuration['EnabledPlugins']['GettingStarted'] = 'GettingStarted';
 $Configuration['EnabledPlugins']['HtmLawed'] = 'HtmLawed';
-$Configuration['EnabledPlugins']['AllViewed'] = TRUE;
+$Configuration['EnabledPlugins']['Flagging'] = TRUE;
 $Configuration['EnabledPlugins']['Quotes'] = TRUE;
-$Configuration['EnabledPlugins']['Tagging'] = TRUE;
-$Configuration['EnabledPlugins']['FileUpload'] = TRUE;
 
 // Garden
-$Configuration['Garden']['Title'] = 'Test';
-$Configuration['Garden']['Cookie']['Salt'] = 'RG1RL38DX8';
+$Configuration['Garden']['Title'] = 'Volkswagen Golf';
+$Configuration['Garden']['Cookie']['Salt'] = 'IKRBALZLKY';
 $Configuration['Garden']['Cookie']['Domain'] = '';
-$Configuration['Garden']['Registration']['ConfirmEmail'] = TRUE;
-$Configuration['Garden']['Email']['SupportName'] = 'Test';
+$Configuration['Garden']['Registration']['ConfirmEmail'] = '1';
+$Configuration['Garden']['Registration']['Method'] = 'Captcha';
+$Configuration['Garden']['Registration']['ConfirmEmailRole'] = '3';
+$Configuration['Garden']['Registration']['CaptchaPrivateKey'] = '';
+$Configuration['Garden']['Registration']['CaptchaPublicKey'] = '';
+$Configuration['Garden']['Registration']['InviteExpiration'] = '-1 week';
+$Configuration['Garden']['Registration']['InviteRoles'] = 'a:5:{i:3;s:1:"0";i:4;s:1:"0";i:8;s:1:"0";i:16;s:1:"0";i:32;s:1:"0";}';
+$Configuration['Garden']['Email']['SupportName'] = 'Kлуб любителей - автомобилей Volkswagen Golf всех поколений';
 $Configuration['Garden']['Version'] = '2.0.18b2';
 $Configuration['Garden']['RewriteUrls'] = TRUE;
 $Configuration['Garden']['CanProcessImages'] = TRUE;
 $Configuration['Garden']['Installed'] = TRUE;
-$Configuration['Garden']['Analytics']['Enabled'] = FALSE;
-$Configuration['Garden']['Html']['SafeStyles'] = FALSE;
-$Configuration['Garden']['Theme'] = 'simple_based';
+$Configuration['Garden']['InstallationID'] = 'D7EE-E5AB18E3-3ADA8C20';
+$Configuration['Garden']['InstallationSecret'] = '092d26bac6cc1f2d9afe40caa96e201cd6f7c316';
+$Configuration['Garden']['Theme'] = 'based';
 $Configuration['Garden']['Locale'] = 'ru-RU';
+$Configuration['Garden']['Html']['SafeStyles'] = FALSE;
+$Configuration['Garden']['EditContentTimeout'] = '-1';
 
 // Plugins
 $Configuration['Plugins']['GettingStarted']['Dashboard'] = '1';
-$Configuration['Plugins']['GettingStarted']['Plugins'] = '1';
 $Configuration['Plugins']['GettingStarted']['Discussion'] = '1';
-$Configuration['Plugins']['GettingStarted']['Profile'] = '1';
-$Configuration['Plugins']['GettingStarted']['Categories'] = '1';
-$Configuration['Plugins']['AllViewed']['Enabled'] = TRUE;
-$Configuration['Plugins']['Tagging']['Enabled'] = TRUE;
-$Configuration['Plugins']['FileUpload']['Enabled'] = TRUE;
+$Configuration['Plugins']['GettingStarted']['Plugins'] = '1';
+$Configuration['Plugins']['Tagging']['Enabled'] = FALSE;
+$Configuration['Plugins']['Flagging']['Enabled'] = TRUE;
+$Configuration['Plugins']['Flagging']['UseDiscussions'] = FALSE;
+$Configuration['Plugins']['Flagging']['CategoryID'] = '-1';
 
 // Routes
 $Configuration['Routes']['DefaultController'] = 'discussions';
@@ -62,5 +62,11 @@ $Configuration['Vanilla']['Version'] = '2.0.18b2';
 $Configuration['Vanilla']['Categories']['MaxDisplayDepth'] = '3';
 $Configuration['Vanilla']['Categories']['DoHeadings'] = FALSE;
 $Configuration['Vanilla']['Categories']['HideModule'] = FALSE;
+$Configuration['Vanilla']['Comments']['AutoOffset'] = TRUE;
+$Configuration['Vanilla']['Comments']['AutoRefresh'] = '0';
+$Configuration['Vanilla']['Comments']['PerPage'] = '10';
+$Configuration['Vanilla']['Discussions']['PerPage'] = '10';
+$Configuration['Vanilla']['Archive']['Date'] = '';
+$Configuration['Vanilla']['Archive']['Exclude'] = FALSE;
 
-// Last edited by alex (83.242.167.62)2011-08-16 11:23:08
+// Last edited by alex808 (81.200.4.101)2011-11-03 16:38:12

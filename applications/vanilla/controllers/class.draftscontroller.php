@@ -45,6 +45,7 @@ class DraftsController extends VanillaController {
       $this->AddJsFile('discussions.js');
       $this->AddJsFile('options.js');
       $this->Title(T('My Drafts'));
+      $this->Menu->HighlightRoute('/discussions'); 
       
       // Validate $Offset
       if (!is_numeric($Offset) || $Offset < 0)
@@ -80,7 +81,7 @@ class DraftsController extends VanillaController {
       // Add modules
       $this->AddModule('NewDiscussionModule');
       $this->AddModule('CategoriesModule');
-      $this->AddModule('BookmarkedModule');
+      //$this->AddModule('BookmarkedModule');
       
       // Render default view (drafts/index.php)
       $this->Render();

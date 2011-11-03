@@ -150,6 +150,8 @@ class Gdn_Format {
       .'/'.$GenderSuffix.($GenderSuffixCode)
       */
 
+      //echo "Activity.{$Activity->ActivityType}.FullHeadline";
+      
       $FullHeadline = T("Activity.{$Activity->ActivityType}.FullHeadline", T($Activity->FullHeadline));
       $ProfileHeadline = T("Activity.{$Activity->ActivityType}.ProfileHeadline", T($Activity->ProfileHeadline));
       $MessageFormat = ($ProfileUserID == $Activity->ActivityUserID || $ProfileUserID == '' || !$ProfileHeadline ? $FullHeadline : $ProfileHeadline);

@@ -1,0 +1,2 @@
+<?php if (!defined('APPLICATION')) exit();
+echo '<div class="NewDiscussion"><a href="/post/discussion',(array_key_exists('CategoryID', $Data) ? '/'.$Data['CategoryID'] : ''),'" class="button w100ps"><i><input type="button" value="Создать новую тему"></i></a></div>';

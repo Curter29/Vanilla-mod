@@ -116,23 +116,23 @@ class Gdn_Database {
          $this->_InTransaction = !$this->Connection()->commit();
       }
    }
-	
-	/**
-	 * Properly quotes and escapes a expression for an sql string.
-	 * @param mixed $Expr The expression to quote.
-	 * @return string The quoted expression.
-	 */
-	public function QuoteExpression($Expr) {
-		if(is_null($Expr)) {
-			return 'NULL';
-		} elseif(is_string($Expr)) {
-			return '\''.str_replace('\'', '\\\'', $Expr).'\'';
-		} elseif(is_object($Expr)) {
-			return '?OBJECT?';
-		} else {
-			return $Expr;
-		}
-	}
+    
+    /**
+     * Properly quotes and escapes a expression for an sql string.
+     * @param mixed $Expr The expression to quote.
+     * @return string The quoted expression.
+     */
+    public function QuoteExpression($Expr) {
+        if(is_null($Expr)) {
+            return 'NULL';
+        } elseif(is_string($Expr)) {
+            return '\''.str_replace('\'', '\\\'', $Expr).'\'';
+        } elseif(is_object($Expr)) {
+            return '?OBJECT?';
+        } else {
+            return $Expr;
+        }
+    }
    
    /**
     * Initialize the properties of this object.
@@ -219,7 +219,7 @@ class Gdn_Database {
       else
          $ReturnType = NULL;
 
-		if (isset($Options['Cache'])) {
+        if (isset($Options['Cache'])) {
          // Check to see if the query is cached.
          $CacheKeys = (array)GetValue('Cache',$Options,NULL);
          $CacheOperation = GetValue('CacheOperation',$Options,NULL);
@@ -263,7 +263,7 @@ class Gdn_Database {
                }
                break;
          }
-		}
+        }
 
       // Run the Query
       if (!is_null($InputParameters) && count($InputParameters) > 0) {

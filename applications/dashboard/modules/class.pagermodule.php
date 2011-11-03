@@ -104,8 +104,8 @@ class PagerModule extends Gdn_Module {
       $this->TotalRecords = 0;
       $this->Wrapper = '<div class="P"><div %1$s>%2$s</div></div>';
       $this->PagerEmpty = '';
-      $this->MoreCode = '›';
-      $this->LessCode = '‹';
+      $this->MoreCode = '&rarr;';
+      $this->LessCode = '&larr;';
       $this->Url = '/controller/action/$s/';
       $this->_PropertiesDefined = FALSE;
       $this->_Totalled = FALSE;

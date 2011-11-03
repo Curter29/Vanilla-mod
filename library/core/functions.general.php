@@ -286,7 +286,7 @@ if (!function_exists('ArrayValue')) {
     */
    function ArrayValue($Needle, $Haystack, $Default = FALSE) {
       $Result = GetValue($Needle, $Haystack, $Default);
-		return $Result;
+        return $Result;
    }
 }
 
@@ -395,8 +395,7 @@ if (!function_exists('Attribute')) {
             continue;
          
          if ($Val != '' && $Attribute != 'Standard') {
-            //$Return .= ' '.$Attribute.'="'.htmlspecialchars($Val, ENT_COMPAT, 'UTF-8').'"';
-            $Return .= ' '.$Attribute.'="'.htmlspecialchars($Val, ENT_COMPAT).'"';
+            $Return .= ' '.$Attribute.'="'.htmlspecialchars($Val, ENT_COMPAT, 'UTF-8').'"';
          }
       }
       return $Return;
@@ -602,15 +601,15 @@ if (!function_exists('ConsolidateArrayValuesByKey')) {
       $Return = array();
       foreach ($Array as $Index => $AssociativeArray) {
          
-			if (is_object($AssociativeArray)) {
-				if($ValueKey === '') {
-					$Return[] = $AssociativeArray->$Key;
-				} elseif(property_exists($AssociativeArray, $ValueKey)) {
-					$Return[$AssociativeArray[$Key]] = $AssociativeArray->$ValueKey;
-				} else {
-					$Return[$AssociativeArray->$Key] = $DefaultValue;
-				}
-			} elseif (is_array($AssociativeArray) && array_key_exists($Key, $AssociativeArray)) {
+            if (is_object($AssociativeArray)) {
+                if($ValueKey === '') {
+                    $Return[] = $AssociativeArray->$Key;
+                } elseif(property_exists($AssociativeArray, $ValueKey)) {
+                    $Return[$AssociativeArray[$Key]] = $AssociativeArray->$ValueKey;
+                } else {
+                    $Return[$AssociativeArray->$Key] = $DefaultValue;
+                }
+            } elseif (is_array($AssociativeArray) && array_key_exists($Key, $AssociativeArray)) {
             if($ValueKey === '') {
                $Return[] = $AssociativeArray[$Key];
             } elseif (array_key_exists($ValueKey, $AssociativeArray)) {
@@ -947,8 +946,8 @@ if (!function_exists('FormatArrayAssignment')) {
             $Array[] = $Prefix .= " = array('".implode("', '", $FormattedValue)."');";
          }
       } elseif (is_int($Value)) {
-			$Array[] = $Prefix .= ' = '.$Value.';';
-		} elseif (is_bool($Value)) {
+            $Array[] = $Prefix .= ' = '.$Value.';';
+        } elseif (is_bool($Value)) {
          $Array[] = $Prefix .= ' = '.($Value ? 'TRUE' : 'FALSE').';';
       } elseif (in_array($Value, array('TRUE', 'FALSE'))) {
          $Array[] = $Prefix .= ' = '.($Value == 'TRUE' ? 'TRUE' : 'FALSE').';';
@@ -1050,41 +1049,41 @@ if (!function_exists('GetPostValue')) {
 }
 
 if (!function_exists('GetValue')) {
-	/**
-	 * Return the value from an associative array or an object.
-	 *
-	 * @param string $Key The key or property name of the value.
-	 * @param mixed $Collection The array or object to search.
-	 * @param mixed $Default The value to return if the key does not exist.
+    /**
+     * Return the value from an associative array or an object.
+     *
+     * @param string $Key The key or property name of the value.
+     * @param mixed $Collection The array or object to search.
+     * @param mixed $Default The value to return if the key does not exist.
     * @param bool $Remove Whether or not to remove the item from the collection.
-	 * @return mixed The value from the array or object.
-	 */
-	function GetValue($Key, &$Collection, $Default = FALSE, $Remove = FALSE) {
-		$Result = $Default;
-		if(is_array($Collection) && array_key_exists($Key, $Collection)) {
-			$Result = $Collection[$Key];
+     * @return mixed The value from the array or object.
+     */
+    function GetValue($Key, &$Collection, $Default = FALSE, $Remove = FALSE) {
+        $Result = $Default;
+        if(is_array($Collection) && isset($Collection[$Key])) {
+            $Result = $Collection[$Key];
          if($Remove)
             unset($Collection[$Key]);
-		} elseif(is_object($Collection) && property_exists($Collection, $Key)) {
-			$Result = $Collection->$Key;
+        } elseif(is_object($Collection) && property_exists($Collection, $Key)) {
+            $Result = $Collection->$Key;
          if($Remove)
             unset($Collection->$Key);
       }
-			
+            
       return $Result;
-	}
+    }
 }
 
 if (!function_exists('GetValueR')) {
    /**
-	 * Return the value from an associative array or an object.
+     * Return the value from an associative array or an object.
     * This function differs from GetValue() in that $Key can be a string consisting of dot notation that will be used to recursivly traverse the collection.
-	 *
-	 * @param string $Key The key or property name of the value.
-	 * @param mixed $Collection The array or object to search.
-	 * @param mixed $Default The value to return if the key does not exist.
-	 * @return mixed The value from the array or object.
-	 */
+     *
+     * @param string $Key The key or property name of the value.
+     * @param mixed $Collection The array or object to search.
+     * @param mixed $Default The value to return if the key does not exist.
+     * @return mixed The value from the array or object.
+     */
    function GetValueR($Key, $Collection, $Default = FALSE) {
       $Path = explode('.', $Key);
 
@@ -1413,8 +1412,8 @@ if (!function_exists('ProxyHead')) {
       
       $OriginalHeaders = $Headers;
       $OriginalTimeout = $Timeout;
-		if(!$Timeout)
-			$Timeout = C('Garden.SocketTimeout', 1.0);
+        if(!$Timeout)
+            $Timeout = C('Garden.SocketTimeout', 1.0);
 
       $UrlParts = parse_url($Url);
       $Scheme = GetValue('scheme', $UrlParts, 'http');
@@ -1443,7 +1442,7 @@ if (!function_exists('ProxyHead')) {
       if (function_exists('curl_init')) {
          //$Url = $Scheme.'://'.$Host.$Path;
          $Handler = curl_init();
-			curl_setopt($Handler, CURLOPT_TIMEOUT, $Timeout);
+            curl_setopt($Handler, CURLOPT_TIMEOUT, $Timeout);
          curl_setopt($Handler, CURLOPT_URL, $Url);
          curl_setopt($Handler, CURLOPT_PORT, $Port);
          curl_setopt($Handler, CURLOPT_HEADER, 1);
@@ -1555,8 +1554,8 @@ if (!function_exists('ProxyRequest')) {
     */
    function ProxyRequest($Url, $Timeout = FALSE, $FollowRedirects = FALSE) {
       $OriginalTimeout = $Timeout;
-		if ($Timeout === FALSE)
-			$Timeout = C('Garden.SocketTimeout', 1.0);
+        if ($Timeout === FALSE)
+            $Timeout = C('Garden.SocketTimeout', 1.0);
 
       $UrlParts = parse_url($Url);
       $Scheme = GetValue('scheme', $UrlParts, 'http');
@@ -1849,9 +1848,9 @@ if (!function_exists('RemoveKeysFromNestedArray')) {
 }
 
 if (!function_exists('RemoveQuoteSlashes')) {
- 	function RemoveQuoteSlashes($String) {
-		return str_replace("\\\"", '"', $String);
-	}
+     function RemoveQuoteSlashes($String) {
+        return str_replace("\\\"", '"', $String);
+    }
 }
 
 if (!function_exists('RemoveValueFromArray')) {
@@ -1982,9 +1981,9 @@ if (!function_exists('SaveToConfig')) {
 if (!function_exists('SliceString')) {
    function SliceString($String, $Length, $Suffix = '…') {
       if (function_exists('mb_strimwidth')) {
-      	static $Charset;
-      	if(is_null($Charset)) $Charset = Gdn::Config('Garden.Charset', 'utf-8');
-      	return mb_strimwidth($String, 0, $Length, $Suffix, $Charset);
+          static $Charset;
+          if(is_null($Charset)) $Charset = Gdn::Config('Garden.Charset', 'utf-8');
+          return mb_strimwidth($String, 0, $Length, $Suffix, $Charset);
       } else {
          $Trim = substr($String, 0, $Length);
          return $Trim . ((strlen($Trim) != strlen($String)) ? $Suffix: ''); 
@@ -2105,32 +2104,32 @@ if (!function_exists('StringIsNullOrEmpty')) {
 
 
 if (!function_exists('SetValue')) {
-	/**
-	 * Set the value on an object/array.
-	 *
-	 * @param string $Needle The key or property name of the value.
-	 * @param mixed $Haystack The array or object to set.
-	 * @param mixed $Value The value to set.
-	 */
-	function SetValue($Key, &$Collection, $Value) {
-		if(is_array($Collection))
-			$Collection[$Key] = $Value;
-		elseif(is_object($Collection))
-			$Collection->$Key = $Value;
-	}
+    /**
+     * Set the value on an object/array.
+     *
+     * @param string $Needle The key or property name of the value.
+     * @param mixed $Haystack The array or object to set.
+     * @param mixed $Value The value to set.
+     */
+    function SetValue($Key, &$Collection, $Value) {
+        if(is_array($Collection))
+            $Collection[$Key] = $Value;
+        elseif(is_object($Collection))
+            $Collection->$Key = $Value;
+    }
 }
 
 
 if (!function_exists('T')) {
    /**
-	 * Translates a code into the selected locale's definition.
-	 *
-	 * @param string $Code The code related to the language-specific definition.
+     * Translates a code into the selected locale's definition.
+     *
+     * @param string $Code The code related to the language-specific definition.
     *   Codes thst begin with an '@' symbol are treated as literals and not translated.
-	 * @param string $Default The default value to be displayed if the translation code is not found.
-	 * @return string The translated string or $Code if there is no value in $Default.
-	 * @see Gdn::Translate()
-	 */
+     * @param string $Default The default value to be displayed if the translation code is not found.
+     * @return string The translated string or $Code if there is no value in $Default.
+     * @see Gdn::Translate()
+     */
    function T($Code, $Default = FALSE) {
       return Gdn::Translate($Code, $Default);
    }
@@ -2143,34 +2142,34 @@ if (!function_exists('Theme')) {
 }
 
 if (!function_exists('TouchValue')) {
-	/**
-	 * Set the value on an object/array if it doesn't already exist.
-	 *
-	 * @param string $Key The key or property name of the value.
-	 * @param mixed $Collection The array or object to set.
-	 * @param mixed $Default The value to set.
-	 */
-	function TouchValue($Key, &$Collection, $Default) {
-		if(is_array($Collection) && !array_key_exists($Key, $Collection))
-			$Collection[$Key] = $Default;
-		elseif(is_object($Collection) && !property_exists($Collection, $Key))
-			$Collection->$Key = $Default;
+    /**
+     * Set the value on an object/array if it doesn't already exist.
+     *
+     * @param string $Key The key or property name of the value.
+     * @param mixed $Collection The array or object to set.
+     * @param mixed $Default The value to set.
+     */
+    function TouchValue($Key, &$Collection, $Default) {
+        if(is_array($Collection) && !array_key_exists($Key, $Collection))
+            $Collection[$Key] = $Default;
+        elseif(is_object($Collection) && !property_exists($Collection, $Key))
+            $Collection->$Key = $Default;
 
       return GetValue($Key, $Collection);
-	}
+    }
 }
 
 if (!function_exists('Translate')) {
    /**
-	 * Translates a code into the selected locale's definition.
-	 *
-	 * @param string $Code The code related to the language-specific definition.
+     * Translates a code into the selected locale's definition.
+     *
+     * @param string $Code The code related to the language-specific definition.
     *   Codes thst begin with an '@' symbol are treated as literals and not translated.
-	 * @param string $Default The default value to be displayed if the translation code is not found.
-	 * @return string The translated string or $Code if there is no value in $Default.
-	 * @deprecated
-	 * @see Gdn::Translate()
-	 */
+     * @param string $Default The default value to be displayed if the translation code is not found.
+     * @return string The translated string or $Code if there is no value in $Default.
+     * @deprecated
+     * @see Gdn::Translate()
+     */
    function Translate($Code, $Default = '') {
       trigger_error('Translate() is deprecated. Use T() instead.', E_USER_DEPRECATED);
       return Gdn::Translate($Code, $Default);

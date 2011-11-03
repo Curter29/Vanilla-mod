@@ -360,6 +360,7 @@ b.button i, a.button i{
 }
 
 .PanelCategories li{
+    text-align: left;
     display: block;
     border-bottom: solid #cccccc 1px;
     padding: 3px;

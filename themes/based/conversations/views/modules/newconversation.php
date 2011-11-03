@@ -1,0 +1,2 @@
+<?if(!defined('APPLICATION')) exit();//echo Anchor(T('Start a New Conversation'), '/messages/add', 'BigButton NewConversation Popup');?>
+<a href="/messages/add" class="button w100ps"><i><input type="button" value="Написать новое сообщение"></i></a>

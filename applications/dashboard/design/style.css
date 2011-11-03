@@ -1699,10 +1699,6 @@ body.Profile ul.Notifications {
 	margin-top: 0;
 }
 /* Preferences Form */
-div.Preferences h3 {
-	margin: 0;
-	padding: 10px 0 4px !important;
-}
 table.PreferenceGroup thead td {
 	font-weight: bold;
 	border-top: 1px solid #aaa;

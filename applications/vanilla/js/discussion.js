@@ -1,5 +1,6 @@
 jQuery(document).ready(function($) {
    
+   var c = {};
 /* Comment Form */
 
    if ($.autogrow)
@@ -11,14 +12,16 @@ jQuery(document).ready(function($) {
    var cancelButton = $('a.Cancel');
       
    // Hide it if they leave the area without typing
-   $('div.CommentForm textarea').blur(function(ev) {
+   /*
+    WTF ??? who metters ???
+    $('div.CommentForm textarea').blur(function(ev) {
       var Comment = $(ev.target).val();
       if (!Comment || Comment == '')
          $('a.Cancel').hide();
-   });
+   });*/
    
    // Reveal the textarea and hide previews.
-   $('a.WriteButton, a.Cancel').livequery('click', function() {
+   $('.WriteButton, .Cancel').livequery('click', function() {
       if ($(this).hasClass('WriteButton')) {
          var frm = $(this).parents('.MessageForm').find('form');
          frm.trigger('WriteButtonClick', [frm]);
@@ -32,28 +35,41 @@ jQuery(document).ready(function($) {
    });
    
    // Hijack comment form button clicks
-   $('div.CommentForm :submit, a.PreviewButton, a.DraftButton').livequery('click', function() {
-      var btn = this;
-      var parent = $(btn).parents('div.CommentForm');
+   $('div.CommentForm :submit').livequery('click', function() {
+      var btn = this, jbtn = $(this);
+      var parent = jbtn.parents('div.CommentForm');
       var frm = $(parent).find('form');
       var textbox = $(frm).find('textarea');
       var inpCommentID = $(frm).find('input:hidden[name$=CommentID]');
       var inpDraftID = $(frm).find('input:hidden[name$=DraftID]');
       var type = 'Post';
-      var preview = $(btn).hasClass('PreviewButton');
-      if (preview) {
+
+      //back to edit first
+      if(jbtn.hasClass('BacktToEdit'))
+      {
+         c['ButtonsPreview'].hide();
+         c['Buttons'].show();
+         $('div.Preview', frm).remove();
+         textbox.show();
+         return false;
+      }
+
+      var preview = jbtn.hasClass('PreviewButton');
+      if (preview)
+      {
          type = 'Preview';
          // If there is already a preview showing, kill processing.
-         if ($('div.Preview').length > 0 || jQuery.trim($(textbox).val()) == '')
-            return false;
+         if ($('div.Preview').length > 0 || jQuery.trim($(textbox).val()) == '') return false;
       }
-      var draft = $(btn).hasClass('DraftButton');
+      var draft = jbtn.hasClass('DraftButton');
       if (draft) {
          type = 'Draft';
          // Don't save draft if string is empty
          if (jQuery.trim($(textbox).val()) == '')
             return false;
       }
+      
+      jbtn.addClass('Progress');
 
       // Post the form, and append the results to #Discussion, and erase the textbox
       var postValues = $(frm).serialize();
@@ -74,9 +90,11 @@ jQuery(document).ready(function($) {
       postValues += '&' + prefix + 'LastCommentID=' + lastCommentID;
       var action = $(frm).attr('action') + '/' + discussionID;
       $(frm).find(':submit').attr('disabled', 'disabled');
-      $(parent).find('div.Tabs ul:first').after('<span class="TinyProgress">&#160;</span>');
+      
+      //$(parent).find('div.Tabs ul:first').after('<span class="TinyProgress">&#160;</span>');
       // Also add a spinner for comments being edited
-      $(btn).parents('div.Comment').find('div.Meta span:last').after('<span class="TinyProgress">&#160;</span>');
+      //$(btn).parents('div.Comment').find('div.Meta span:last').after('<span class="TinyProgress">&#160;</span>');
+      
       $(frm).triggerHandler('BeforeSubmit', [frm, btn]);
       $.ajax({
          type: "POST",
@@ -158,12 +176,15 @@ jQuery(document).ready(function($) {
             if (json.FormSaved == false) {
                $(frm).prepend(json.ErrorMessages);
                json.ErrorMessages = null;
-            } else if (preview) {
+            } else if (preview) { // PREVIEW
+
                $(frm).trigger('PreviewLoaded', [frm]);
-               $(parent).find('li.Active').removeClass('Active');
-               $(btn).parents('li').addClass('Active');
-               $(frm).find('#Form_Body').after(json.Data);
-               $(frm).find('#Form_Body').hide();
+               $(frm).find('#Form_Body').after(json.Data).hide();
+               
+               c['Buttons'] = $('.Buttons', frm);
+               c['ButtonsPreview'] = $('.ButtonsPreview', frm);
+               c['Buttons'].hide();
+               c['ButtonsPreview'].show();
                
             } else if (!draft) {
                // Clean up the form
@@ -206,6 +227,7 @@ jQuery(document).ready(function($) {
             // Remove any spinners, and re-enable buttons.
             $('span.TinyProgress').remove();
             $(frm).find(':submit').removeAttr("disabled");
+            jbtn.removeClass('Progress');
          }
       });
       frm.triggerHandler('submit');
@@ -219,6 +241,12 @@ jQuery(document).ready(function($) {
       $(parent).find('div.Preview').remove();
       $(parent).find('textarea').show();
       $('span.TinyProgress').remove();
+      
+      if(c['ButtonsPreview'])
+      {
+         c['ButtonsPreview'].hide();
+         c['Buttons'].show();
+      }
    }
 
    // Utility function to clear out the comment form

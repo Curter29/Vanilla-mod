@@ -553,5 +553,6 @@ class PostController extends VanillaController {
    public function Initialize() {
       parent::Initialize();
       $this->AddCssFile('vanilla.css');
+      if($this->Menu) $this->Menu->HighlightRoute('/discussions');
    }
 }

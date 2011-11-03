@@ -11,10 +11,10 @@ Contact Vanilla Forums Inc. at support [at] vanillaforums [dot] com
 // Define the plugin:
 $PluginInfo['Quotes'] = array(
    'Name' => 'Quotes',
-   'Description' => "This plugin allows users to quote each other's posts easily.",
-   'Version' => '1.2',
+   'Description' => "This plugin allows users to quote each other easily.",
+   'Version' => '1.2.2',
    'MobileFriendly' => TRUE,
-   'RequiredApplications' => FALSE,
+   'RequiredApplications' => array('Vanilla' => '2.0.10'),
    'RequiredTheme' => FALSE, 
    'RequiredPlugins' => FALSE,
    'HasLocale' => TRUE,
@@ -25,9 +25,21 @@ $PluginInfo['Quotes'] = array(
 );
 
 class QuotesPlugin extends Gdn_Plugin {
+   
+   public function __construct() {
+      parent::__construct();
+      
+      if (function_exists('ValidateUsernameRegex'))
+         $this->ValidateUsernameRegex = ValidateUsernameRegex();
+      else
+         $this->ValidateUsernameRegex = "[\d\w_]{3,20}";
+      
+      // Whether to handle drawing quotes or leave it up to some other plugin
+      $this->RenderQuotes = C('Plugins.Quotes.RenderQuotes',TRUE);
+   }
 
    public function PluginController_Quotes_Create($Sender) {
-		$this->Dispatch($Sender, $Sender->RequestArgs);
+        $this->Dispatch($Sender, $Sender->RequestArgs);
    }
    
    public function Controller_Getquote($Sender) {
@@ -56,8 +68,9 @@ class QuotesPlugin extends Gdn_Plugin {
    }
    
    protected function PrepareController($Sender) {
+      //if (!$this->RenderQuotes) return;
       $Sender->AddJsFile($this->GetResource('js/quotes.js', FALSE, FALSE));
-      $Sender->AddCssFile($this->GetResource('css/quotes.css', FALSE, FALSE));
+      //$Sender->AddCssFile($this->GetResource('css/quotes.css', FALSE, FALSE));
    }
    
    public function DiscussionController_CommentOptions_Handler($Sender) {
@@ -88,16 +101,31 @@ QUOTE;
       $this->RenderQuotes($Sender);
    }
    
-   protected function RenderQuotes($Sender) {      
+   protected function RenderQuotes($Sender) {
+      if (!$this->RenderQuotes) return;
+      
+      static $ValidateUsernameRegex = NULL;
+      
+      if (is_null($ValidateUsernameRegex))
+         $ValidateUsernameRegex = sprintf("[%s]+", 
+            C('Garden.User.ValidationRegex',"\d\w_"));
+      
       switch ($Sender->EventArguments['Object']->Format) {
          case 'Html':
-            $Sender->EventArguments['Object']->Body = preg_replace_callback('/(<blockquote rel="([\d\w_ ]{3,30})">)/u', array($this, 'QuoteAuthorCallback'), $Sender->EventArguments['Object']->Body);
-            $Sender->EventArguments['Object']->Body = str_replace('</blockquote>','</p></div></blockquote>',$Sender->EventArguments['Object']->Body);
+            $Sender->EventArguments['Object']->Body = preg_replace_callback("/(<blockquote rel=\"({$ValidateUsernameRegex})\">)/ui", array($this, 'QuoteAuthorCallback'), $Sender->EventArguments['Object']->Body);
+            $Sender->EventArguments['Object']->Body = str_ireplace('</blockquote>','</p></div></blockquote>',$Sender->EventArguments['Object']->Body);
             break;
             
          case 'BBCode':
-            $Sender->EventArguments['Object']->Body = preg_replace_callback('/(\[quote="([\d\w_ ]{3,30})"\])/u', array($this, 'QuoteAuthorCallback'), $Sender->EventArguments['Object']->Body);
-            $Sender->EventArguments['Object']->Body = str_replace('[/quote]','</p></div></blockquote>',$Sender->EventArguments['Object']->Body);
+            case 'Markdown':
+            // BBCode quotes with authors
+            $Sender->EventArguments['Object']->Body = preg_replace_callback("/(\[quote=\"?({$ValidateUsernameRegex})\"?\])/ui", array($this, 'QuoteAuthorCallback'), $Sender->EventArguments['Object']->Body);
+            
+            // BBCode quotes without authors
+            $Sender->EventArguments['Object']->Body = str_ireplace('[quote]','<blockquote class="UserQuote"><div class="QuoteText"><p>',$Sender->EventArguments['Object']->Body);
+            
+            // End of BBCode quotes
+            $Sender->EventArguments['Object']->Body = str_ireplace('[/quote]','</p></div></blockquote>',$Sender->EventArguments['Object']->Body);
             break;
             
          case 'Display':
@@ -196,7 +224,7 @@ BLOCKQUOTE;
    }
    
    public function Setup() {
-      SaveToConfig('Garden.Html.SafeStyles',FALSE);
+      SaveToConfig('Garden.Html.SafeStyles', FALSE);
    }
    
    public function OnDisable() {

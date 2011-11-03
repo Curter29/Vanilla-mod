@@ -55,6 +55,9 @@ $Dispatcher->Cleanup();
 if (defined('PROFILER') && PROFILER) {
    $xhprof_data = xhprof_disable();
    
+   $XHPROF_ROOT = '/var/www/turbof.ru/test/xhprof';
+   $XHPROF_SERVER_NAME = 'test.turbof.ru/xhprof/xhprof_html';
+   
    if (is_null($XHPROF_ROOT))
       die("Unable to save XHProf data. \$XHPROF_ROOT not defined in index.php");
 
@@ -80,6 +83,6 @@ if (defined('PROFILER') && PROFILER) {
    //
    $run_id = $xhprof_runs->save_run($xhprof_data, $xhprof_namespace);
 
-   echo "http://{$XHPROF_SERVER_NAME}/index.php?run={$run_id}&source={$xhprof_namespace}\n";
+   echo "&nbsp;&nbsp;<a href='http://{$XHPROF_SERVER_NAME}/index.php?run={$run_id}&source={$xhprof_namespace}' target='_blank'>xhprof</a><br><br>";
 
 }

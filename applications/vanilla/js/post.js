@@ -1,4 +1,5 @@
 jQuery(document).ready(function($) {
+   var c = {};
    
    if ($.autogrow)
       $('textarea.TextBox').livequery(function() {
@@ -23,7 +24,9 @@ jQuery(document).ready(function($) {
       postValues += '&'+btn.name+'='+btn.value;
       var discussionID = $(frm).find('[name$=DiscussionID]').val();
       var action = $(frm).attr('action') + '/' + discussionID;
-      $(frm).find(':submit:last').after('<span class="Progress">&#160;</span>');
+      //$(frm).find(':submit:last').after('<span class="Progress">&#160;</span>');
+      //var last_submit = $(frm).find(':submit:last');last_submit.addClass('Progress');
+      var last_submit = $(btn);last_submit.addClass('Progress');
       $(frm).find(':submit').attr('disabled', 'disabled');
       
       $.ajax({
@@ -71,7 +74,8 @@ jQuery(document).ready(function($) {
          },
          complete: function(XMLHttpRequest, textStatus) {
             // Remove any spinners, and re-enable buttons.
-            $('span.Progress').remove();
+            //$('span.Progress').remove();
+            last_submit.removeClass('Progress');
             $(frm).find(':submit').removeAttr("disabled");
          }
       });
@@ -79,26 +83,37 @@ jQuery(document).ready(function($) {
       return false;
    });
    
+   
    // Hijack discussion form button clicks
    $('#DiscussionForm :submit').click(function() {
-      var btn = this;
-      var frm = $(btn).parents('form').get(0);
-      
+      var btn = this, jbtn = $(this);
+      var frm = jbtn.parents('form').get(0);
       // Handler before submitting
       $(frm).triggerHandler('BeforeDiscussionSubmit', [frm, btn]);
-      
       var textbox = $(frm).find('textarea');
+
+      //back to edit first
+      if(jbtn.hasClass('BacktToEdit'))
+      {
+         c['ButtonsPreview'].hide();
+         c['Buttons'].show();
+         $('div.Preview', frm).remove();
+         textbox.show();
+         return false;
+      }      
+      
       var inpDiscussionID = $(frm).find(':hidden[name$=DiscussionID]');
       var inpDraftID = $(frm).find(':hidden[name$=DraftID]');
-      var preview = $(btn).attr('name') == $('#Form_Preview').attr('name') ? true : false;
-      var draft = $(btn).attr('name') == $('#Form_SaveDraft').attr('name') ? true : false;
+      var preview = jbtn.attr('name') == $('#Form_Preview').attr('name') ? true : false;
+      var draft = jbtn.attr('name') == $('#Form_SaveDraft').attr('name') ? true : false;
       var postValues = $(frm).serialize();
       postValues += '&DeliveryType=VIEW&DeliveryMethod=JSON'; // DELIVERY_TYPE_VIEW
       postValues += '&'+btn.name+'='+btn.value;
       // Add a spinner and disable the buttons
-      $(frm).find(':submit:last').after('<span class="Progress">&#160;</span>');
+      //$(frm).find(':submit:last').after('<span class="Progress">&#160;</span>');
+      //var last_submit = $(frm).find(':submit:last');last_submit.addClass('Progress');
+      jbtn.addClass('Progress');
       $(frm).find(':submit').attr('disabled', 'disabled');      
-      
       $.ajax({
          type: "POST",
          url: $(frm).attr('action'),
@@ -130,7 +145,19 @@ jQuery(document).ready(function($) {
                json.ErrorMessages = null;
             } else if (preview) {
                // Pop up the new preview.
-               $.popup({}, json.Data);
+               
+               textbox.hide();
+               
+               c['Buttons'] = $('.Buttons', frm);
+               c['ButtonsPreview'] = $('.ButtonsPreview', frm);
+               c['Buttons'].hide();
+               c['ButtonsPreview'].show();
+               
+               $(frm).find('#Form_Body').after(json.Data).hide();
+               
+               //$.popup({}, json.Data);
+               //alert(json.Data)
+               
             } else if (!draft) {
                if (json.RedirectUrl) {
                   $(frm).triggerHandler('complete');
@@ -144,7 +171,8 @@ jQuery(document).ready(function($) {
          },
          complete: function(XMLHttpRequest, textStatus) {
             // Remove any spinners, and re-enable buttons.
-            $('span.Progress').remove();
+            //$('span.Progress').remove();
+            jbtn.removeClass('Progress');
             $(frm).find(':submit').removeAttr("disabled");
          }
       });

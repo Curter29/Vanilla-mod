@@ -21,11 +21,21 @@ class ProfileController extends Gdn_Controller {
    
    public function __construct() {
       $this->User = FALSE;
-      $this->_TabView = 'Activity';
+      $this->_TabView = 'Notifications';
       $this->_TabController = 'ProfileController';
       $this->_TabApplication = 'Dashboard';
-      $this->_CurrentTab = 'Activity';
-      $this->_ProfileTabs = array();      
+      $this->_CurrentTab = 'Notifications';
+      $this->_ProfileTabs = array();
+      
+      /*if(!Gdn::Session()->IsValid())
+      {
+        $this->_CurrentTab = 'Discussions';
+        $this->_TabView = 'Profile';
+        
+        $this->_TabController = 'Discussions';
+        $this->_TabApplication = 'Vanilla';
+      }*/
+      
       parent::__construct();
    }
    
@@ -45,8 +55,8 @@ class ProfileController extends Gdn_Controller {
    }   
    
    public function Activity($UserReference = '', $Username = '', $UserID = '', $Offset = '0') {
-      $this->Permission('Garden.Profiles.View');
-		$Offset = is_numeric($Offset) ? $Offset : 0;
+       $this->Permission('Garden.Profiles.View');
+        $Offset = is_numeric($Offset) ? $Offset : 0;
       if ($Offset < 0)
          $Offset = 0;
 
@@ -88,9 +98,9 @@ class ProfileController extends Gdn_Controller {
          }
       } else {
          $this->ProfileUserID = $this->User->UserID;
-			$Limit = 50;
+            $Limit = 50;
          $this->ActivityData = $this->ActivityModel->Get($this->User->UserID, $Offset, $Limit);
-			$TotalRecords = $this->ActivityModel->GetCount($this->User->UserID);
+            $TotalRecords = $this->ActivityModel->GetCount($this->User->UserID);
          if ($this->ActivityData->NumRows() > 0) {
             $ActivityData = $this->ActivityData->Result();
             $ActivityIDs = ConsolidateArrayValuesByKey($ActivityData, 'ActivityID');
@@ -106,7 +116,7 @@ class ProfileController extends Gdn_Controller {
          } else {
             $this->CommentData = FALSE;
          }
-			
+            
          // Build a pager
          $PagerFactory = new Gdn_PagerFactory();
          $this->Pager = $PagerFactory->GetPager('MorePager', $this);
@@ -124,10 +134,10 @@ class ProfileController extends Gdn_Controller {
          if ($this->_DeliveryType != DELIVERY_TYPE_ALL) {
             $this->SetJson('LessRow', $this->Pager->ToString('less'));
             $this->SetJson('MoreRow', $this->Pager->ToString('more'));
-				if ($Offset > 0) {
-					$this->View = 'activities';
-					$this->ControllerName = 'Activity';
-				}
+                if ($Offset > 0) {
+                    $this->View = 'activities';
+                    $this->ControllerName = 'Activity';
+                }
          }
       }
 
@@ -212,10 +222,59 @@ class ProfileController extends Gdn_Controller {
 
    public function Index($User = '', $Username = '', $UserID = '') {
       $this->GetUserInfo($User, $Username, $UserID);
-		if ($this->User->UserID == Gdn::Session()->UserID)
-			return $this->Notifications();
-		else
-			return $this->Activity($User, $Username, $UserID);
+      if ($this->User->UserID == Gdn::Session()->UserID) return $this->Notifications();
+      else
+      {
+        //copy from vanilal hooks //ProfileController_Discussions_Create
+        
+        $UserReference = ArrayValue(0, $this->RequestArgs, '');
+        $Username = ArrayValue(1, $this->RequestArgs, '');
+        $Offset = ArrayValue(2, $this->RequestArgs, 0);
+        // Tell the ProfileController what tab to load
+        $this->GetUserInfo($UserReference, $Username);
+        $this->SetTabView('Discussions', 'Profile', 'Discussions', 'Vanilla');
+
+        // Load the data for the requested tab.
+        if (!is_numeric($Offset) || $Offset < 0)
+         $Offset = 0;
+
+        $Limit = Gdn::Config('Vanilla.Discussions.PerPage', 30);
+        $DiscussionModel = new DiscussionModel();
+        $this->DiscussionData = $DiscussionModel->Get($Offset, $Limit, array('d.InsertUserID' => $this->User->UserID));
+        $CountDiscussions = $Offset + $this->DiscussionData->NumRows();
+        if ($this->DiscussionData->NumRows() == $Limit)
+         $CountDiscussions = $Offset + $Limit + 1;
+
+        // Build a pager
+        $PagerFactory = new Gdn_PagerFactory();
+        $this->Pager = $PagerFactory->GetPager('MorePager', $this);
+        $this->Pager->MoreCode = 'More Discussions';
+        $this->Pager->LessCode = 'Newer Discussions';
+        $this->Pager->ClientID = 'Pager';
+        $this->Pager->Configure(
+         $Offset,
+         $Limit,
+         $CountDiscussions,
+         'profile/discussions/'.$this->User->UserID.'/'.Gdn_Format::Url($this->User->Name).'/%1$s/'
+        );
+
+        // Deliver JSON data if necessary
+        if ($this->DeliveryType() != DELIVERY_TYPE_ALL && $Offset > 0) {
+         $this->SetJson('LessRow', $this->Pager->ToString('less'));
+         $this->SetJson('MoreRow', $this->Pager->ToString('more'));
+         $this->View = 'discussions';
+        }
+
+        // Set the HandlerType back to normal on the profilecontroller so that it fetches it's own views
+        $this->HandlerType = HANDLER_TYPE_NORMAL;
+
+        // Do not show discussion options
+        $this->ShowOptions = FALSE;
+
+        // Render the ProfileController
+        $this->Render();          
+      }
+       //return $this->Activity($User, $Username, $UserID);
    }
    
    public function Invitations() {
@@ -238,9 +297,9 @@ class ProfileController extends Gdn_Controller {
    
    public function Notifications($Offset = '0') {
       $this->Permission('Garden.SignIn.Allow');
-		
-		$Limit = 50;
-		$Offset = is_numeric($Offset) ? $Offset : 0;
+        
+        $Limit = 50;
+        $Offset = is_numeric($Offset) ? $Offset : 0;
       if ($Offset < 0)
          $Offset = 0;
 
@@ -257,30 +316,30 @@ class ProfileController extends Gdn_Controller {
       
       $this->ActivityModel = new ActivityModel();
       $this->ActivityData = $this->ActivityModel->GetNotifications($Session->UserID, $Offset, $Limit);
-		$TotalRecords = $this->ActivityModel->GetCountNotifications($Session->UserID);
-		
-		// Build a pager
-		$PagerFactory = new Gdn_PagerFactory();
-		$this->Pager = $PagerFactory->GetPager('MorePager', $this);
-		$this->Pager->MoreCode = 'More';
-		$this->Pager->LessCode = 'Newer Notifications';
-		$this->Pager->ClientID = 'Pager';
-		$this->Pager->Configure(
-			$Offset,
-			$Limit,
-			$TotalRecords,
-			'profile/notifications/%1$s/'
-		);
-		// Deliver json data if necessary
-		if ($this->_DeliveryType != DELIVERY_TYPE_ALL) {
-			$this->SetJson('LessRow', $this->Pager->ToString('less'));
-			$this->SetJson('MoreRow', $this->Pager->ToString('more'));
-			if ($Offset > 0) {
-				$this->View = 'activities';
-				$this->ControllerName = 'Activity';
-			}
-		}
-		
+        $TotalRecords = $this->ActivityModel->GetCountNotifications($Session->UserID);
+        
+        // Build a pager
+        $PagerFactory = new Gdn_PagerFactory();
+        $this->Pager = $PagerFactory->GetPager('MorePager', $this);
+        $this->Pager->MoreCode = 'More';
+        $this->Pager->LessCode = 'Newer Notifications';
+        $this->Pager->ClientID = 'Pager';
+        $this->Pager->Configure(
+            $Offset,
+            $Limit,
+            $TotalRecords,
+            'profile/notifications/%1$s/'
+        );
+        // Deliver json data if necessary
+        if ($this->_DeliveryType != DELIVERY_TYPE_ALL) {
+            $this->SetJson('LessRow', $this->Pager->ToString('less'));
+            $this->SetJson('MoreRow', $this->Pager->ToString('more'));
+            if ($Offset > 0) {
+                $this->View = 'activities';
+                $this->ControllerName = 'Activity';
+            }
+        }
+        
       $this->Render();
    }   
    
@@ -297,7 +356,7 @@ class ProfileController extends Gdn_Controller {
          $this->UserModel->Validation->ApplyRule('Password', 'Required');
          $this->UserModel->Validation->ApplyRule('Password', 'Match');
          if ($this->Form->Save()) {
-				$this->InformMessage('<span class="InformSprite Check"></span>'.T('Your password has been changed.'), 'Dismissable AutoDismiss HasSprite');
+                $this->InformMessage('<span class="InformSprite Check"></span>'.T('Your password has been changed.'), 'Dismissable AutoDismiss HasSprite');
             $this->Form->ClearInputs();
          }
       }
@@ -379,8 +438,8 @@ class ProfileController extends Gdn_Controller {
          if ($this->Form->ErrorCount() == 0)
             Redirect('dashboard/profile/'.$this->ProfileUrl());
       }
-		if ($this->Form->ErrorCount() > 0)
-			$this->DeliveryType(DELIVERY_TYPE_ALL);
+        if ($this->Form->ErrorCount() > 0)
+            $this->DeliveryType(DELIVERY_TYPE_ALL);
 
       $this->Render();
    }
@@ -389,7 +448,7 @@ class ProfileController extends Gdn_Controller {
       $Session = Gdn::Session();
       $this->Permission('Garden.SignIn.Allow');
       $this->GetUserInfo($UserReference, $Username, $UserID);
-		$UserPrefs = Gdn_Format::Unserialize($this->User->Preferences);
+        $UserPrefs = Gdn_Format::Unserialize($this->User->Preferences);
       if (!is_array($UserPrefs))
          $UserPrefs = array();
       $MetaPrefs = UserModel::GetMeta($this->User->UserID, 'Preferences.%', 'Preferences.');
@@ -406,38 +465,38 @@ class ProfileController extends Gdn_Controller {
       );
       
       $this->FireEvent('AfterPreferencesDefined');
-		
-		// Loop through the preferences looking for duplicates, and merge into a single row
-		$this->PreferenceGroups = array();
-		$this->PreferenceTypes = array();
-		foreach ($this->Preferences as $PreferenceGroup => $Preferences) {
-			$this->PreferenceGroups[$PreferenceGroup] = array();
-			$this->PreferenceTypes[$PreferenceGroup] = array();
-			foreach ($Preferences as $Name => $Description) {
+        
+        // Loop through the preferences looking for duplicates, and merge into a single row
+        $this->PreferenceGroups = array();
+        $this->PreferenceTypes = array();
+        foreach ($this->Preferences as $PreferenceGroup => $Preferences) {
+            $this->PreferenceGroups[$PreferenceGroup] = array();
+            $this->PreferenceTypes[$PreferenceGroup] = array();
+            foreach ($Preferences as $Name => $Description) {
             $Location = 'Prefs';
             if (is_array($Description))
                list($Description, $Location) = $Description;
 
-				$NameParts = explode('.', $Name);
-				$PrefType = GetValue('0', $NameParts);
-				$SubName = GetValue('1', $NameParts);
-				if ($SubName != FALSE) {
-					// Save an array of all the different types for this group
-					if (!in_array($PrefType, $this->PreferenceTypes[$PreferenceGroup]))
-						$this->PreferenceTypes[$PreferenceGroup][] = $PrefType;
-					
-					// Store all the different subnames for the group	
-					if (!array_key_exists($SubName, $this->PreferenceGroups[$PreferenceGroup])) {
-						$this->PreferenceGroups[$PreferenceGroup][$SubName] = array($Name);
-					} else {
-						$this->PreferenceGroups[$PreferenceGroup][$SubName][] = $Name;
-					}
-				} else {
-					$this->PreferenceGroups[$PreferenceGroup][$Name] = array($Name);
-				}
-			}
-		}
-		
+                $NameParts = explode('.', $Name);
+                $PrefType = GetValue('0', $NameParts);
+                $SubName = GetValue('1', $NameParts);
+                if ($SubName != FALSE) {
+                    // Save an array of all the different types for this group
+                    if (!in_array($PrefType, $this->PreferenceTypes[$PreferenceGroup]))
+                        $this->PreferenceTypes[$PreferenceGroup][] = $PrefType;
+                    
+                    // Store all the different subnames for the group    
+                    if (!array_key_exists($SubName, $this->PreferenceGroups[$PreferenceGroup])) {
+                        $this->PreferenceGroups[$PreferenceGroup][$SubName] = array($Name);
+                    } else {
+                        $this->PreferenceGroups[$PreferenceGroup][$SubName][] = $Name;
+                    }
+                } else {
+                    $this->PreferenceGroups[$PreferenceGroup][$Name] = array($Name);
+                }
+            }
+        }
+        
       if ($this->User->UserID != $Session->UserID)
          $this->Permission('Garden.Users.Edit');
 
@@ -483,7 +542,7 @@ class ProfileController extends Gdn_Controller {
          }
          $this->UserModel->SavePreference($this->User->UserID, $UserPrefs);
          UserModel::SetMeta($this->User->UserID, $Meta, 'Preferences.');
-			$this->InformMessage('<span class="InformSprite Check"></span>'.T('Your preferences have been saved.'), 'Dismissable AutoDismiss HasSprite');
+            $this->InformMessage('<span class="InformSprite Check"></span>'.T('Your preferences have been saved.'), 'Dismissable AutoDismiss HasSprite');
       }
       $this->Render();
    }
@@ -631,16 +690,16 @@ class ProfileController extends Gdn_Controller {
     * @param mixed The tab name (or array of tab names) to add to the profile tab collection.
     * @param string URL the tab should point to.
     */
-   public function AddProfileTab($TabName, $TabUrl = '', $CssClass = '', $TabHtml = '') {
+   public function AddProfileTab($TabName, $TabUrl = '', $CssClass = '', $TabHtml = '', $TabCnt = 0) {
       if (!is_array($TabName)) {
-			if ($TabHtml == '')
-				$TabHtml = $TabName;
-				
-         $TabName = array($TabName => array('TabUrl' => $TabUrl, 'CssClass' => $CssClass, 'TabHtml' => $TabHtml));
+            if ($TabHtml == '')
+                $TabHtml = $TabName;
+                
+         $TabName = array($TabName => array('TabUrl' => $TabUrl, 'CssClass' => $CssClass, 'TabHtml' => $TabHtml, 'TabCount' => $TabCnt));
       }
 
       foreach ($TabName as $Name => $TabInfo) {
-			$Url = GetValue('TabUrl', $TabInfo, '');
+            $Url = GetValue('TabUrl', $TabInfo, '');
          if ($Url == '')
             $TabInfo['TabUrl'] = '/profile/'.strtolower($Name).'/'.$this->User->UserID.'/'.Gdn_Format::Url($this->User->Name);
             
@@ -655,7 +714,7 @@ class ProfileController extends Gdn_Controller {
       if ($this->User !== FALSE) {
          $SideMenu = new SideMenuModule($this);
          $SideMenu->HtmlId = 'UserOptions';
-			$SideMenu->AutoLinkGroups = FALSE;
+            $SideMenu->AutoLinkGroups = FALSE;
          $Session = Gdn::Session();
          $ViewingUserID = $Session->UserID;
          $SideMenu->AddItem('Options', '');
@@ -728,23 +787,24 @@ class ProfileController extends Gdn_Controller {
          $this->AddModule($UserInfoModule);
          $this->AddJsFile('jquery.jcrop.pack.js');
          $this->AddJsFile('profile.js');
-	      $this->AddJsFile('jquery.gardenmorepager.js');
+         $this->AddJsFile('jquery.gardenmorepager.js');
          $this->AddJsFile('activity.js');
-         $ActivityUrl = 'profile/activity/';
+         /*$ActivityUrl = 'profile/activity/';
          if ($this->User->UserID != $Session->UserID)
             $ActivityUrl .= $this->User->UserID.'/'.Gdn_Format::Url($this->User->Name);
-            
-         if ($this->User->UserID == $Session->UserID) {
+         */   
+         if ($this->User->UserID == $Session->UserID)
+         {
             $Notifications = T('Notifications');
-				$NotificationsHtml = $Notifications;
-            $CountNotifications = $Session->User->CountNotifications;
-            if (is_numeric($CountNotifications) && $CountNotifications > 0)
-               $NotificationsHtml .= '<span>'.$CountNotifications.'</span>';
+            //$NotificationsHtml = $Notifications;
+            $CountNotifications = (int)$Session->User->CountNotifications;
+            //if (is_numeric($CountNotifications) && $CountNotifications > 0)
+               //$NotificationsHtml .= '<span>'.$CountNotifications.'</span>';
                
-            $this->AddProfileTab($Notifications, 'profile/notifications', 'Notifications', $NotificationsHtml);
+            $this->AddProfileTab($Notifications, 'profile/notifications', 'Notifications', $Notifications, $CountNotifications);
          }
 
-         $this->AddProfileTab(T('Activity'), $ActivityUrl, 'Activity');
+         //$this->AddProfileTab(T('Activity'), $ActivityUrl, 'Activity');
             
          $this->FireEvent('AddProfileTabs');
       }
@@ -779,26 +839,26 @@ class ProfileController extends Gdn_Controller {
 
       $this->Render();
    }
-	
-	protected $_UserInfoRetrieved = FALSE;
+    
+    protected $_UserInfoRetrieved = FALSE;
 
    /**
     * Retrieve the user to be manipulated. If no params are passed, this will
     * retrieve the current user from the session.
     */
    public function GetUserInfo($UserReference = '', $Username = '', $UserID = '') {
-		if ($this->_UserInfoRetrieved)
-			return;
-		
+        if ($this->_UserInfoRetrieved)
+            return;
+        
       if (!C('Garden.Profile.Public') && !Gdn::Session()->IsValid())
          Redirect('dashboard/home/permission');
       
-		// If a UserID was provided as a querystring parameter, use it over anything else:
-		if ($UserID) {
-			$UserReference = $UserID;
-			$Username = 'Unknown'; // Fill this with a value so the $UserReference is assumed to be an integer/userid.
-		}
-		   
+        // If a UserID was provided as a querystring parameter, use it over anything else:
+        if ($UserID) {
+            $UserReference = $UserID;
+            $Username = 'Unknown'; // Fill this with a value so the $UserReference is assumed to be an integer/userid.
+        }
+           
       $this->Roles = array();
       if ($UserReference == '') {
          $this->User = $this->UserModel->Get(Gdn::Session()->UserID);
@@ -816,14 +876,14 @@ class ProfileController extends Gdn_Controller {
          $this->RoleData = $this->UserModel->GetRoles($this->User->UserID);
          if ($this->RoleData !== FALSE && $this->RoleData->NumRows(DATASET_TYPE_ARRAY) > 0) 
             $this->Roles = ConsolidateArrayValuesByKey($this->RoleData->Result(), 'Name');
-			
-			$this->SetData('Profile', $this->User);
-			$this->SetData('UserRoles', $this->Roles);
-			
-			// If the photo contains an http://, it is just an icon (probably from facebook or some external service), don't show it here because the Photo property is used to define logic around allowing thumbnail edits, etc.
-			if ($this->User->Photo != '' && in_array(strtolower(substr($this->User->Photo, 0, 7)), array('http://', 'https:/')))
-				$this->User->Photo = '';
-			
+            
+            $this->SetData('Profile', $this->User);
+            $this->SetData('UserRoles', $this->Roles);
+            
+            // If the photo contains an http://, it is just an icon (probably from facebook or some external service), don't show it here because the Photo property is used to define logic around allowing thumbnail edits, etc.
+            if ($this->User->Photo != '' && in_array(strtolower(substr($this->User->Photo, 0, 7)), array('http://', 'https:/')))
+                $this->User->Photo = '';
+            
       }
       
       // Make sure the userphoto module gets added to the page
@@ -832,7 +892,7 @@ class ProfileController extends Gdn_Controller {
       $this->AddModule($UserPhotoModule);
       
       $this->AddSideMenu();
-		$this->_UserInfoRetrieved = TRUE;
+        $this->_UserInfoRetrieved = TRUE;
       return TRUE;
    }
 
@@ -868,7 +928,7 @@ class ProfileController extends Gdn_Controller {
          $this->ControllerName = $Controller;
          $this->ApplicationFolder = $Application;
       }
-		$this->_CurrentTab = T($CurrentTab);
+        $this->_CurrentTab = T($CurrentTab);
    }
    
 }

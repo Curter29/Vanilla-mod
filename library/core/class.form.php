@@ -166,7 +166,6 @@ class Gdn_Form extends Gdn_Pluggable {
       $CssClass = ArrayValueI('class', $Attributes);
       if ($CssClass === FALSE) $Attributes['class'] = 'Button';
 
-      //<b class="button"><i><input type="submit" value="Войти на сайт"></i></b>
       $Return = '<b class="button"><i><input type="' . $Type . '"';
       $Return .= $this->_IDAttribute($ButtonCode, $Attributes);
       $Return .= $this->_NameAttribute($ButtonCode, $Attributes);
